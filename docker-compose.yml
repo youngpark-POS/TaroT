@@ -1,0 +1,86 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: tarot
+      POSTGRES_PASSWORD: tarot
+      POSTGRES_DB: tarot
+    ports:
+      - '5432:5432'
+    volumes:
+      - tarot-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U tarot -d tarot']
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  migrate:
+    build:
+      context: .
+      target: tooling
+    environment: &backend-env
+      DATABASE_URL: postgres://tarot:tarot@db:5432/tarot
+      WEB_ORIGIN: http://localhost:8080
+      COOKIE_SECURE: 'false'
+      AI_MODE: ${AI_MODE:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      SPREAD_MODEL: ${SPREAD_MODEL:-gpt-5.6-luna}
+      READING_MODEL: ${READING_MODEL:-gpt-5.6-terra}
+      DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:-local-development-encryption-key-change-me}
+      SESSION_HMAC_KEY: ${SESSION_HMAC_KEY:-local-development-session-key-change-me}
+      RATE_LIMIT_HMAC_KEY: ${RATE_LIMIT_HMAC_KEY:-local-development-rate-limit-key}
+    command: ['sh', '-c', 'pnpm db:migrate && pnpm db:seed']
+    depends_on:
+      db:
+        condition: service_healthy
+
+  api:
+    build:
+      context: .
+      target: api
+      args:
+        VITE_API_URL: http://localhost:4000
+    environment:
+      <<: *backend-env
+      PORT: 4000
+    ports:
+      - '4000:4000'
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:4000/health/live').then(r=>{if(!r.ok)process.exit(1)})",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  worker:
+    build:
+      context: .
+      target: worker
+    environment: *backend-env
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        VITE_API_URL: http://localhost:4000
+    ports:
+      - '8080:80'
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  tarot-postgres:

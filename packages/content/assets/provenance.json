@@ -1,0 +1,796 @@
+{
+  "acquiredAt": "2026-09-20T08:31:17.251Z",
+  "source": "Wikimedia Commons",
+  "files": [
+    {
+      "id": "major-00-the-fool",
+      "sourceTitle": "File:RWS Tarot 00 Fool.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/RWS_Tarot_00_Fool.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "d9d5d57117ccb832023223e5588f44ae7b1829b9e11943bce11c6a34d808b890",
+      "sourceWidth": 1144,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-01-the-magician",
+      "sourceTitle": "File:RWS Tarot 01 Magician.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/RWS_Tarot_01_Magician.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "5efbc72d277d6691759c57a7f3cd96dc898bd6cd820e89bf592954cab1841fa0",
+      "sourceWidth": 1108,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-02-the-high-priestess",
+      "sourceTitle": "File:RWS Tarot 02 High Priestess.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/RWS_Tarot_02_High_Priestess.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "b50fa6c9aa365e7d87228000e45b30a423af30acabe857f50383e5d77368e003",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-03-the-empress",
+      "sourceTitle": "File:RWS Tarot 03 Empress.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/RWS_Tarot_03_Empress.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "68c3b730dda6781feb1f81c069e8c9cbc50b28ca6020228ddbc62ac8a524e6e8",
+      "sourceWidth": 1123,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-04-the-emperor",
+      "sourceTitle": "File:RWS Tarot 04 Emperor.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/RWS_Tarot_04_Emperor.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ff2d98470efa8b5f264fc49ab41f362fb2f4c1a5fb1be06833ad79c19fe6df8a",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-05-the-hierophant",
+      "sourceTitle": "File:RWS Tarot 05 Hierophant.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/RWS_Tarot_05_Hierophant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7895027f58045a6c19f63caafc30278da6c4c89caa56286dd21030fa00a66e8c",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-06-the-lovers",
+      "sourceTitle": "File:RWS Tarot 06 Lovers.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_06_Lovers.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "8f2248d3d3d829aba99a2585c693b7acc00f93363c75ed86ee81151e519753d7",
+      "sourceWidth": 1122,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-07-the-chariot",
+      "sourceTitle": "File:RWS Tarot 07 Chariot.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/RWS_Tarot_07_Chariot.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "2688dcd5a1f5c42e85f074e7924715cc72e5ace3b3b101eba588279cc00ba9f3",
+      "sourceWidth": 1111,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-08-strength",
+      "sourceTitle": "File:RWS Tarot 08 Strength.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/RWS_Tarot_08_Strength.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "d4934841435f21a34f1d6cf5538b1b441e02c5aa124b8cd3e0ae9085bd8c2d05",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-09-the-hermit",
+      "sourceTitle": "File:RWS Tarot 09 Hermit.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4d/RWS_Tarot_09_Hermit.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "dee8dfc097fc4e9d3d9f3ad69ff5268884b0ce5bc17faa2fee73e321cc5104cb",
+      "sourceWidth": 1123,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-10-wheel-of-fortune",
+      "sourceTitle": "File:RWS Tarot 10 Wheel of Fortune.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3c/RWS_Tarot_10_Wheel_of_Fortune.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7dbbbf629aa0903a331deb71a248f4d7e1ca3ec05df3dd9ec8753cffb5b9b662",
+      "sourceWidth": 1104,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-11-justice",
+      "sourceTitle": "File:RWS Tarot 11 Justice.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/RWS_Tarot_11_Justice.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ab6afe53ab0b5d81ef0f82bdce69d2c91033e708f9b44aa292fd2f32286ca539",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-12-the-hanged-man",
+      "sourceTitle": "File:RWS Tarot 12 Hanged Man.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2b/RWS_Tarot_12_Hanged_Man.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "9b88ef91cd6221b9558c9bc194c08296592ea089091c4ea204181918a3ae227e",
+      "sourceWidth": 1092,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-13-death",
+      "sourceTitle": "File:RWS Tarot 13 Death.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/RWS_Tarot_13_Death.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "934463d3c64f7816bb59d4a68f0ff2638437cd7f7f647ee3b17f21732ab8f7b9",
+      "sourceWidth": 1111,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-14-temperance",
+      "sourceTitle": "File:RWS Tarot 14 Temperance.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/RWS_Tarot_14_Temperance.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "e36225ce401364bd93f9a21249d8e109cc1fa2575132631292de58f6459c6fef",
+      "sourceWidth": 1106,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-15-the-devil",
+      "sourceTitle": "File:RWS Tarot 15 Devil.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/55/RWS_Tarot_15_Devil.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ced2a045f93231eadc534d9470f21d17ad6760e3c50d8f4b32e77c34285c1af4",
+      "sourceWidth": 1090,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-16-the-tower",
+      "sourceTitle": "File:RWS Tarot 16 Tower.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/RWS_Tarot_16_Tower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "af82e5230b67ea7b477bc0baf72315a4d9f6c51e54e5051761a531297729265d",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-17-the-star",
+      "sourceTitle": "File:RWS Tarot 17 Star.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/db/RWS_Tarot_17_Star.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "56ff4b17b38de999dfc4b2c1233347920f798874cd78cb2dadf5c992ec502bbc",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-18-the-moon",
+      "sourceTitle": "File:RWS Tarot 18 Moon.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7f/RWS_Tarot_18_Moon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "5b06d9a76226648e1f4900c862c26c95744f664ac8979d0f66b41583d5c46d2d",
+      "sourceWidth": 1111,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-19-the-sun",
+      "sourceTitle": "File:RWS Tarot 19 Sun.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/RWS_Tarot_19_Sun.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "eedb75e5b39b0041f1352860e99ff14b798b3088330c98489779eddd0990882b",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "major-20-judgement",
+      "sourceTitle": "File:RWS Tarot 20 Judgement.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/RWS_Tarot_20_Judgement.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "a883f8a9ae773930455d76a0b9028ffff3045bc4bd635aa20bf6af36ba82946f",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "major-21-the-world",
+      "sourceTitle": "File:RWS Tarot 21 World.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/RWS_Tarot_21_World.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "a55c57e416f001baf667b8ea325924b45d7f770b72c450cee2374d55eeab6aaa",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-ace",
+      "sourceTitle": "File:Wands01.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/Wands01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "6101c2fd3122849e852c5abb4ff331e5a9e2a00f411e4480178414d0a9b87320",
+      "sourceWidth": 1106,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-02",
+      "sourceTitle": "File:Wands02.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Wands02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "6887efae71467ed05f269872789f3c9e2a69d84eb208cbc969669b819d2652a9",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-03",
+      "sourceTitle": "File:Wands03.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Wands03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "98c0622eb874c699e443f30c52f91783d3904eb2e2fe55331f2302d55386fa9b",
+      "sourceWidth": 1103,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-04",
+      "sourceTitle": "File:Wands04.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Wands04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "cbe3a4154e51bf0b59e00755bab664d5a28fcf651a780542152d166d98a3ea34",
+      "sourceWidth": 1108,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-05",
+      "sourceTitle": "File:Wands05.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Wands05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "40f63afa05c8402a287992dfc4ccb36d4d097861a71ad920566700ac1f7deb7e",
+      "sourceWidth": 1108,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-06",
+      "sourceTitle": "File:Wands06.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Wands06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "a323b2cadf8856c1c4fb79df7ea18ca51b5f315e96b1e7085db10d224b266232",
+      "sourceWidth": 1118,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-07",
+      "sourceTitle": "File:Wands07.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Wands07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "1e11d98b1ad79bfab94de3f68b056868b5de8b17904cdfb8a4209fb11d714fee",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-08",
+      "sourceTitle": "File:Wands08.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Wands08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "69477c9bc3b0a194b0b0f816bc089ad86e2ebb4fe5254e6ee04f357f3141e732",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-09",
+      "sourceTitle": "File:Wands09.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Wands09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "f6608367acadecd6509948bc9e6841c8551977206b28c0fc6eaadc5beef28da8",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "wands-10",
+      "sourceTitle": "File:Wands10.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Wands10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "6f26b62e984a227c4f1bb7f1a1f8eabd5f2e504c2c079eeedfae5ac9996c215d",
+      "sourceWidth": 1101,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-page",
+      "sourceTitle": "File:Wands11.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Wands11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "dc0e8eb2a0e610ebf89371ae0a498653447599ab4cd3034b5808830cae1f40e6",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-knight",
+      "sourceTitle": "File:Wands12.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/16/Wands12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "f3bd3462f49f79402259bd43b4696adcf2a0cd63f2f53fb401e9cef5cb9af99b",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-queen",
+      "sourceTitle": "File:Wands13.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Wands13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "3daf0aeecb03736ccdd19873b527ec9cd61b68e305ea18a1ae12839dc9e208fe",
+      "sourceWidth": 1118,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "wands-king",
+      "sourceTitle": "File:Wands14.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Wands14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "2eb4aa6c3e9aab66705ed6ea308b630ff3a6fffe2807957ce0d193d41b08912c",
+      "sourceWidth": 1104,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-ace",
+      "sourceTitle": "File:Cups01.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Cups01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "b8870607507654dbf592b34dc8507185bb7dce1bac78fc3cea248c952f525cad",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-02",
+      "sourceTitle": "File:Cups02.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Cups02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "c41a81694b762423ed3bbddacba9a65158fa94acd5673a3e2762808d379219c8",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-03",
+      "sourceTitle": "File:Cups03.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Cups03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "c1a47f3785665e2093100a55e9cd7f7add760a20652b181d7ef72ac6e76a0212",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "cups-04",
+      "sourceTitle": "File:Cups04.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Cups04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "e021573e3c292543e6945cc5caada8f4fedc2d8c9542018e20a93826eb4304e0",
+      "sourceWidth": 1118,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-05",
+      "sourceTitle": "File:Cups05.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Cups05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "d8396d6833bb85a2a5aac6995a7147b0f8d0523ff66b587d7523fd32e21a98ab",
+      "sourceWidth": 1121,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-06",
+      "sourceTitle": "File:Cups06.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/17/Cups06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "e9dece821bed3e5322bed707fcfdea6aba1616986aaeb8a345a9d20108a61627",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-07",
+      "sourceTitle": "File:Cups07.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Cups07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "b2ef5ac1e6243e3ce0cb305f81799b9ebdb6f0f803b0c3ad97c7f1d2c8f3bc75",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-08",
+      "sourceTitle": "File:Cups08.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/60/Cups08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "690e8658353b06cd27f1b0474eaec07944caabc4c5b1b8b912826db890126c08",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "cups-09",
+      "sourceTitle": "File:Cups09.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/24/Cups09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "0c817944e97efa74de9845f5a17d016a563d614d99e2171b3eacf860223df5d7",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "cups-10",
+      "sourceTitle": "File:Cups10.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/84/Cups10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "6326e529c73f43f9833997ee0c0f9e1e84f1db2707482a9462fe878077be0d23",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-page",
+      "sourceTitle": "File:Cups11.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Cups11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "d273ecdedb65623ba5d13d0ba0d6af9dc4a7f829dc3d7f6d12840be2a89515dd",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-knight",
+      "sourceTitle": "File:Cups12.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Cups12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ed076d476baeb01d1faa241270b8c876b5e0da3e24467632441fec8de10e7d76",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "cups-queen",
+      "sourceTitle": "File:Cups13.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/62/Cups13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "57c5f66cf3db11b9ddfa3ef7cd865c973e58286345a6eca8234f6c3e2fa1a562",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "cups-king",
+      "sourceTitle": "File:Cups14.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Cups14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "fc452e3118e986f74b21de0c0be9f30b8756693d22f141325fc25dbfd1237ccd",
+      "sourceWidth": 1121,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-ace",
+      "sourceTitle": "File:Swords01.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Swords01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "842270164c0ebbb75e531e3c45688d3b408cf12587a3c391a6d4a21ccf4b6104",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-02",
+      "sourceTitle": "File:Swords02.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Swords02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "bce3471ace9417914c6c5e762d7bd9c1aed16cf7973e153247c9c528fd543d8f",
+      "sourceWidth": 1121,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-03",
+      "sourceTitle": "File:Swords03.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/Swords03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "22c016c1824a319fd3747765e182c6667d402c8042a3a6dc452444c0c01533ef",
+      "sourceWidth": 1103,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-04",
+      "sourceTitle": "File:Swords04.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Swords04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "3faf70078a16f671e10839bfa88290e7817b37790231ed92c9c057df8a7019f3",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "swords-05",
+      "sourceTitle": "File:Swords05.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/23/Swords05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7cbed4f0b8f5dbce5806381b5013037c53420a1c6d20dce0582f835d4c6f335c",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-06",
+      "sourceTitle": "File:Swords06.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Swords06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "5ed58f813569d38748c5f8bb23eb3632ab1f27138d80be4d58aeef607f196b68",
+      "sourceWidth": 1111,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "swords-07",
+      "sourceTitle": "File:Swords07.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/34/Swords07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "5b2013d7c29e07d6b87ee6fc1131a5cf3fbc5f77fd6264232518292018c22dd0",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "swords-08",
+      "sourceTitle": "File:Swords08.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Swords08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "653a927577797e2f860d5616d0408884176a730657aa0df0fab73d8b0cfbccac",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "swords-09",
+      "sourceTitle": "File:Swords09.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Swords09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "4b4f2162265f7cc55e77049a750eba9293f8b04136ff1ca34bf5ec605d72ec85",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "swords-10",
+      "sourceTitle": "File:Swords10.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "261c6375f49c49cacabf943ef15e1ffb44a0160a573b740668f150d9336a3f52",
+      "sourceWidth": 1107,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-page",
+      "sourceTitle": "File:Swords11.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Swords11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7097b6eabebca9af768b2925fe4c01296e1d926adb4be00d3b19b251e293b04a",
+      "sourceWidth": 1108,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-knight",
+      "sourceTitle": "File:Swords12.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Swords12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ad775e4b7de8a1183edfc4fee51acff7af8dca9a01ebefdffb441b5bc317ce4d",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-queen",
+      "sourceTitle": "File:Swords13.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Swords13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "911073b7105d579cf6ef8589f4e11edc7ae9df842f1dfb988d7071d571da2068",
+      "sourceWidth": 1104,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "swords-king",
+      "sourceTitle": "File:Swords14.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/33/Swords14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "aa1b327497624b32c59549abf1fcc7e37586bee4e0d0a7eb4abdb72ff1838754",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "pentacles-ace",
+      "sourceTitle": "File:Pents01.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fd/Pents01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "a36d1c149c57ce0e5ddfafbf113b18cafde0950554dd93e51d0a9e963385885d",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-02",
+      "sourceTitle": "File:Pents02.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Pents02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7808f75695718b9eb54f2dac8f73d7eacd2dc9a6c2cde46b2c5682d30ecc1660",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-03",
+      "sourceTitle": "File:Pents03.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "8cf12adc21650fe70b9c49ccb66808a86d8809fa899c03f890a37795d642bccd",
+      "sourceWidth": 1117,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "pentacles-04",
+      "sourceTitle": "File:Pents04.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Pents04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "e3ccf97a6c96378800119aeef605f33c3eab88592ae3ee0da89bb87c9ae80e79",
+      "sourceWidth": 1110,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-05",
+      "sourceTitle": "File:Pents05.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/96/Pents05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "6101275fd2574c27e84f68bc24bf0fb0114099a0a5d926ce37fe427917aed34a",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-06",
+      "sourceTitle": "File:Pents06.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Pents06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "e70be6f295de4998e69a8a84dda3681a8d427339b3c4f3610a6671fe206b7775",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-07",
+      "sourceTitle": "File:Pents07.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Pents07.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "bfbca72c27013ede2ebadce6df73f00196d8e585952e4c44ec5ed20998c3bd6b",
+      "sourceWidth": 1114,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "pentacles-08",
+      "sourceTitle": "File:Pents08.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/Pents08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "c3ac81e3cfcc6147218764bf47a94df80c3c90748a84dc3add8a484a64b6be32",
+      "sourceWidth": 1117,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-09",
+      "sourceTitle": "File:Pents09.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Pents09.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "ac172c6847173456a4915ffed89df6d93a3192a5c8d03efffd8e38bac80db319",
+      "sourceWidth": 1108,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-10",
+      "sourceTitle": "File:Pents10.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Pents10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "7929360197809bd5768e5ec679c926a506851ecb35ac29dc97e5e4c3763f3fb9",
+      "sourceWidth": 1115,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-page",
+      "sourceTitle": "File:Pents11.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Pents11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "28c7ee11a3858e506e72e2c6b5017237bbb01da9635ff34c540ba4765dd7d991",
+      "sourceWidth": 1112,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-knight",
+      "sourceTitle": "File:Pents12.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pents12.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "8da44974cb95308148de2707e0bfb2775c30201d2db8dcd230b269dc0b10aacd",
+      "sourceWidth": 1111,
+      "sourceHeight": 1919
+    },
+    {
+      "id": "pentacles-queen",
+      "sourceTitle": "File:Pents13.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Pents13.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "68e9c6b5ab712f547019dc79ed7b4f88758c1793a4c6f20956332c7630f59c06",
+      "sourceWidth": 1109,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "pentacles-king",
+      "sourceTitle": "File:Pents14.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Pents14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:Pamela_Colman_Smith\" class=\"extiw\" title=\"w:en:Pamela Colman Smith\"><span title=\"British occultist, artist and illustrator (1878–1951)\">Pamela Colman Smith</span></a></bdi>",
+      "sha256": "8e800791899ae1c53bb86981d907a262f88cf6f6987892325100bb0e0e946cc1",
+      "sourceWidth": 1107,
+      "sourceHeight": 1920
+    },
+    {
+      "id": "card-back",
+      "sourceTitle": "File:Waite–Smith Tarot Roses and Lilies cropped.jpg",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Waite%E2%80%93Smith_Tarot_Roses_and_Lilies_cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "license": "Public domain Public domain",
+      "author": "Unknown author, possibly Pamela Colman Smith",
+      "sha256": "4d97a03cbf1a6ad6a31b1b9ba9ec79e155555de50df26e7527006f58553fd990",
+      "sourceWidth": 825,
+      "sourceHeight": 1425
+    }
+  ]
+}

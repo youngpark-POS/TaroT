@@ -1,0 +1,23 @@
+{
+  "name": "@tarot/content",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "fetch:assets": "tsx scripts/fetch-assets.ts",
+    "validate": "tsx scripts/validate.ts"
+  },
+  "dependencies": {
+    "@tarot/contracts": "workspace:*",
+    "sharp": "^0.34.3",
+    "zod": "^4.1.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

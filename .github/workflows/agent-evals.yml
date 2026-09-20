@@ -1,0 +1,33 @@
+name: agent-evals
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 18 * * 1'
+
+jobs:
+  spread-evaluation:
+    runs-on: ubuntu-latest
+    environment: agent-evaluation
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      SPREAD_MODEL: gpt-5.6-luna
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Require evaluation secret
+        run: test -n "$OPENAI_API_KEY"
+      - run: pnpm --filter @tarot/agents eval:spreads
+      - run: pnpm --filter @tarot/agents eval:readings > reading-eval.jsonl
+      - uses: actions/upload-artifact@v4
+        with:
+          name: reading-evaluation
+          path: reading-eval.jsonl
+          retention-days: 14

@@ -1,0 +1,38 @@
+{
+  "name": "tarot",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "scripts": {
+    "build": "corepack pnpm -r --if-present build",
+    "dev": "corepack pnpm --parallel --filter @tarot/api --filter @tarot/worker --filter @tarot/web dev",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "corepack pnpm -r --if-present typecheck",
+    "test": "corepack pnpm -r --if-present test",
+    "test:e2e": "corepack pnpm --filter @tarot/web test:e2e",
+    "db:migrate": "corepack pnpm --filter @tarot/database migrate",
+    "db:seed": "corepack pnpm --filter @tarot/database seed",
+    "content:fetch": "corepack pnpm --filter @tarot/content fetch:assets",
+    "content:validate": "corepack pnpm --filter @tarot/content validate"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
+    "globals": "^16.3.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.42.0"
+  }
+}

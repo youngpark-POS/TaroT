@@ -1,0 +1,23 @@
+{
+  "name": "@tarot/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/worker.ts",
+    "start": "node dist/worker.cjs",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tarot/agents": "workspace:*",
+    "@tarot/contracts": "workspace:*",
+    "@tarot/database": "workspace:*",
+    "@tarot/runtime": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2"
+  }
+}
