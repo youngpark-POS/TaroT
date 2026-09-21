@@ -343,15 +343,7 @@ function CardStage({ reading }: { reading: PublicReading }) {
 }
 
 function ResultView({ reading, result }: { reading: PublicReading; result: ReadingResult }) {
-  const queryClient = useQueryClient();
   const cardMap = new Map(reading.revealedCards.map((card) => [card.card.id, card]));
-  const retry = useMutation({
-    mutationFn: () => api.retryInterpretation(reading.id),
-    onSuccess: (updated) => {
-      queryClient.setQueryData(['reading', reading.id], updated);
-      queryClient.removeQueries({ queryKey: ['result', reading.id] });
-    },
-  });
   const copyText = async () => {
     const text = [
       `TaroT — ${reading.question}`,
@@ -376,19 +368,6 @@ function ResultView({ reading, result }: { reading: PublicReading; result: Readi
       {result.safetyNotice && (
         <aside className="safety-notice" role="note">
           {result.safetyNotice}
-        </aside>
-      )}
-      {result.fallback && (
-        <aside className="fallback-notice">
-          <p>AI 해석이 일시적으로 어려워 검증된 카드 기본 의미를 보여 드립니다.</p>
-          <button
-            className="secondary-button"
-            onClick={() => retry.mutate()}
-            disabled={retry.isPending}
-          >
-            {retry.isPending ? '해석을 다시 요청하는 중…' : '같은 카드로 해석 다시 요청'}
-          </button>
-          {retry.error && <ErrorMessage error={retry.error} />}
         </aside>
       )}
       <article className="summary-card">

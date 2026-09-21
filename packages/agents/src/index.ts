@@ -74,21 +74,24 @@ export class MockReadingAgent implements ReadingAgentGateway {
   async interpret(input: Parameters<ReadingAgentGateway['interpret']>[0]): Promise<ReadingResult> {
     const interpreted = input.cards.map(({ card, orientation, positionIndex }) => {
       const meaning = card[orientation];
+      const position = input.spread.positions[positionIndex];
+      const orientationLabel = orientation === 'upright' ? '정방향' : '역방향';
+      const keywords = meaning.keywords.slice(0, 2).join('과 ');
+      const positionPrompt = (position?.prompt ?? '지금 필요한 선택').replace(/[.!?]+$/u, '');
       return {
         positionIndex,
-        positionName: input.spread.positions[positionIndex]?.name ?? `카드 ${positionIndex + 1}`,
+        positionName: position?.name ?? `카드 ${positionIndex + 1}`,
         cardId: card.id,
         cardName: card.name,
         orientation,
-        interpretation:
-          `${meaning.reflection} ${input.spread.positions[positionIndex]?.prompt ?? ''}`.trim(),
+        interpretation: `${position?.name ?? `${positionIndex + 1}번째`} 자리의 ${card.name} ${orientationLabel}은 ${keywords}의 기운이 강하게 들어오는 카드예요. ${meaning.reflection} 이 자리에서는 “${positionPrompt}”를 기준으로 움직이면 흐름을 더 분명하게 잡을 수 있어요.`,
       };
     });
     const keywords = input.cards
       .flatMap(({ card, orientation }) => card[orientation].keywords)
       .slice(0, 4);
     return {
-      summary: `${input.spread.name}에서 드러난 흐름은 하나의 정답보다 지금의 기준과 감정을 함께 살펴보라고 권해요. ${interpreted[0]?.interpretation ?? ''}`,
+      summary: `이번 ${input.spread.name}의 결론은 ${keywords.slice(0, 3).join(', ')}의 흐름이 강하다는 것이에요. 가까운 흐름에서는 ${input.cards[0]?.card.name ?? '첫 카드'}의 기운이 먼저 작용해 상황의 방향이 선명해질 가능성이 높아요. 지금은 망설임을 늘리기보다 카드가 짚은 기준 하나를 정해 행동으로 옮기는 편이 유리해요.`,
       themes: [...new Set(keywords)].slice(0, 4),
       cards: interpreted,
       reflectionQuestions: [
@@ -164,8 +167,10 @@ export class OpenAIReadingAgent implements ReadingAgentGateway {
     const agent = new Agent({
       name: 'TaroT 해석 리더',
       model: this.model,
-      instructions: `당신은 성찰 중심의 한국어 타로 리더입니다. get_reading_knowledge의 승인된 의미만 근거로 사용하세요.
-따뜻한 ~해요 문체를 사용하고 미래, 타인의 속마음, 의료·법률·투자 결과를 사실처럼 단정하지 마세요.
+      instructions: `당신은 구체적인 점술형 한국어 타로 리더입니다. get_reading_knowledge의 승인된 의미만 근거로 사용하세요.
+기본 해석은 질문에 대한 결론을 먼저 밝히고, 현재 들어온 기운과 가까운 흐름, 유리한 행동 또는 주의점을 분명하게 말하세요. “여러 가능성이 있어요”, “자신을 돌아보세요” 같은 두루뭉실한 말만으로 끝내지 마세요.
+summary와 각 카드의 interpretation은 각각 완결된 한국어 2~3문장으로 쓰고 줄바꿈은 넣지 마세요. 짧고 밀도 있게 쓰되 카드명, 정·역방향, 위치가 실제 판단에 어떻게 작용하는지 구체적으로 연결하세요.
+따뜻한 ~해요 문체와 “흐름이 강해요”, “가능성이 높아요”, “유리해요” 같은 점술형 표현을 사용하세요. 다만 미래, 타인의 속마음, 의료·법률·투자 결과는 확정된 사실처럼 단정하지 마세요.
 각 카드 해석은 해당 위치의 질문과 연결하고 카드 ID, 위치 순서, 정역방향을 절대 바꾸지 마세요.
 고위험 질문은 결정을 지시하지 말고 감정·가치·전문가에게 확인할 사실을 중심으로 다루세요.
 crisis가 true이면 안전 안내에 109, 112, 119를 포함하되 리딩은 성찰형으로 계속하세요.`,
@@ -208,17 +213,27 @@ export function createFallbackResult(
 ): ReadingResult {
   const result = new MockReadingAgent().interpret(input);
   // This helper remains synchronous to callers through a deterministic reconstruction.
-  const cards = input.cards.map(({ card, orientation, positionIndex }) => ({
-    positionIndex,
-    positionName: input.spread.positions[positionIndex]?.name ?? `카드 ${positionIndex + 1}`,
-    cardId: card.id,
-    cardName: card.name,
-    orientation,
-    interpretation: card[orientation].reflection,
-  }));
+  const cards = input.cards.map(({ card, orientation, positionIndex }) => {
+    const meaning = card[orientation];
+    const position = input.spread.positions[positionIndex];
+    const positionPrompt = (position?.prompt ?? '필요한 선택').replace(/[.!?]+$/u, '');
+    return {
+      positionIndex,
+      positionName: position?.name ?? `카드 ${positionIndex + 1}`,
+      cardId: card.id,
+      cardName: card.name,
+      orientation,
+      interpretation: `${card.name} ${orientation === 'upright' ? '정방향' : '역방향'}에서는 ${meaning.keywords.slice(0, 2).join('과 ')}의 흐름이 두드러져요. ${meaning.reflection} 지금은 ${position?.name ?? '이 자리'}의 핵심인 “${positionPrompt}”에 맞춰 한 가지 행동을 정하는 편이 유리해요.`,
+    };
+  });
   void result;
   return {
-    summary: '해석 서비스가 잠시 원활하지 않아 검증된 카드 의미를 중심으로 보여 드려요.',
+    summary: `이번 ${input.spread.name}에서는 ${input.cards
+      .flatMap(({ card, orientation }) => card[orientation].keywords)
+      .slice(0, 3)
+      .join(
+        ', ',
+      )}의 기운이 강하게 나타나요. 첫 카드인 ${input.cards[0]?.card.name ?? '중심 카드'}가 전체 흐름을 이끌어 가까운 선택의 방향이 차츰 선명해질 가능성이 높아요. 아래 카드별 조언에서 반복되는 신호를 우선 행동 기준으로 삼는 편이 유리해요.`,
     themes: [
       ...new Set(input.cards.flatMap(({ card, orientation }) => card[orientation].keywords)),
     ].slice(0, 4),

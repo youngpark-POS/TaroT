@@ -1,5 +1,8 @@
 name: agent-evals
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
   schedule:
@@ -13,11 +16,11 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       SPREAD_MODEL: gpt-5.6-luna
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.15.1
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: pnpm
@@ -26,7 +29,7 @@ jobs:
         run: test -n "$OPENAI_API_KEY"
       - run: pnpm --filter @tarot/agents eval:spreads
       - run: pnpm --filter @tarot/agents eval:readings > reading-eval.jsonl
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: reading-evaluation
           path: reading-eval.jsonl

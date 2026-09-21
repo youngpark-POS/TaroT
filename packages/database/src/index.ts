@@ -101,6 +101,22 @@ export class TarotRepository {
       .where(eq(readings.id, id));
   }
 
+  async savePreparedInterpretation(readingId: string, resultEncrypted: string) {
+    await this.pool.query(
+      `UPDATE readings
+       SET result_encrypted = $2,
+           status = CASE
+             WHEN jsonb_array_length(state->'draw') > 0
+              AND (state->>'revealedCount')::int >= jsonb_array_length(state->'draw')
+             THEN 'completed'
+             ELSE status
+           END,
+           updated_at = now()
+       WHERE id = $1`,
+      [readingId, resultEncrypted],
+    );
+  }
+
   async saveIdempotentResponse(readingId: string, key: string, response: unknown) {
     await this.db
       .insert(idempotencyKeys)

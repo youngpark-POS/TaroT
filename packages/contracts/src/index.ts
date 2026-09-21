@@ -100,11 +100,13 @@ export const cardInterpretationSchema = z.object({
   cardId: z.string(),
   cardName: z.string(),
   orientation: orientationSchema,
-  interpretation: z.string(),
+  interpretation: z
+    .string()
+    .describe('질문과 위치에 직접 답하는 구체적인 한국어 점술형 해석 2~3문장'),
 });
 
 export const readingResultSchema = z.object({
-  summary: z.string(),
+  summary: z.string().describe('전체 흐름과 가까운 전개를 요약하는 한국어 점술형 해석 2~3문장'),
   themes: z.array(z.string()).min(1).max(5),
   cards: z.array(cardInterpretationSchema),
   reflectionQuestions: z.array(z.string()).min(2).max(3),

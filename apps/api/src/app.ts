@@ -332,6 +332,7 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
         revealedCount: 0,
       };
       await repository.updateReading(reading.id, { status: 'revealing', state });
+      await repository.enqueueInterpretation(randomUUID(), reading.id);
       const updated = await repository.getReading(reading.id, hash);
       return reply.send(await toPublicReading(repository, config, updated!));
     },
@@ -345,7 +346,7 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
         response: {
           200: z.object({
             revealed: revealedCardSchema,
-            status: z.enum(['revealing', 'interpreting']),
+            status: z.enum(['revealing', 'interpreting', 'completed']),
             nextPositionIndex: z.number().int().nonnegative().nullable(),
           }),
         },
@@ -392,14 +393,27 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
       const revealedCount = reading.state.revealedCount + 1;
       const finished = revealedCount === spread.cardCount;
       const state = { ...reading.state, revealedCount };
+      let responseStatus: 'revealing' | 'interpreting' | 'completed' = finished
+        ? reading.resultEncrypted
+          ? 'completed'
+          : 'interpreting'
+        : 'revealing';
       await repository.updateReading(reading.id, {
-        status: finished ? 'interpreting' : 'revealing',
+        status: responseStatus,
         state,
       });
-      if (finished) await repository.enqueueInterpretation(randomUUID(), reading.id);
+      if (finished) {
+        // Compatibility path for readings whose spread was selected before pre-generation existed.
+        await repository.enqueueInterpretation(randomUUID(), reading.id);
+        const refreshed = await repository.getReading(reading.id, hash);
+        if (refreshed?.resultEncrypted && refreshed.status === 'interpreting') {
+          responseStatus = 'completed';
+          await repository.updateReading(reading.id, { status: responseStatus });
+        }
+      }
       const response = {
         revealed,
-        status: finished ? 'interpreting' : 'revealing',
+        status: responseStatus,
         nextPositionIndex: finished ? null : revealedCount,
       };
       await repository.saveIdempotentResponse(reading.id, keyHeader, response);

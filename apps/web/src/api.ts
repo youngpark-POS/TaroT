@@ -55,8 +55,4 @@ export const api = {
       throw new ApiError(body?.detail ?? '해석을 불러올 수 없어요.', response.status);
     return body as ReadingResult;
   },
-  retryInterpretation: (id: string) =>
-    request<PublicReading>(`/v1/readings/${id}/interpretation/retry`, {
-      method: 'POST',
-    }),
 };

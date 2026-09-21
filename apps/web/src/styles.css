@@ -99,9 +99,15 @@ footer {
   margin: 0 auto;
   padding: clamp(52px, 8vw, 110px) 24px;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(40px, 8vw, 100px);
-  align-items: center;
+  grid-template-columns: minmax(0, 900px);
+  justify-content: center;
+  gap: clamp(30px, 5vw, 54px);
+  align-items: start;
+}
+.hero-copy {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
 }
 .eyebrow,
 .step-label {
@@ -124,6 +130,8 @@ h2 {
 }
 .lead {
   max-width: 590px;
+  margin-left: auto;
+  margin-right: auto;
   color: #d0cbd7;
   font-size: 1.06rem;
   line-height: 1.85;
@@ -137,6 +145,9 @@ h2 {
   border-left: 1px solid var(--gold);
   padding: 8px 0 8px 18px;
   font-size: 0.88rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
 }
 .notice-card p {
   margin: 0;
@@ -153,6 +164,9 @@ h2 {
 .question-panel {
   border-radius: 24px;
   padding: clamp(24px, 4vw, 42px);
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 .ornament {
   color: var(--gold);
@@ -481,7 +495,8 @@ textarea::placeholder {
   white-space: nowrap;
   translate: calc(-50% + 47px) 0;
   width: max-content;
-  font-size: 0.65rem;
+  font-size: 0.975rem;
+  line-height: 1.35;
 }
 .position-label {
   color: var(--gold);
@@ -512,8 +527,7 @@ textarea::placeholder {
   font-size: 1.08rem;
   line-height: 1.7;
 }
-.safety-notice,
-.fallback-notice {
+.safety-notice {
   max-width: 850px;
   margin: 0 auto 24px;
   padding: 16px 20px;

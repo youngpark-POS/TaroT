@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { spreads } from '@tarot/content';
-import { MockSpreadAgent } from './index.js';
+import { MockReadingAgent, MockSpreadAgent } from './index.js';
 import { spreadEvalCases } from '../evals/spread-cases.js';
 import { readingEvalCases } from '../evals/reading-cases.js';
 
@@ -50,6 +50,21 @@ describe('30 fixed reading evaluation cases', () => {
         Array.from({ length: testCase.spread.cardCount }, (_, index) => index),
       );
       expect(new Set(testCase.cards.map((item) => item.card.id)).size).toBe(testCase.cards.length);
+    }
+  });
+
+  it('writes concrete divinatory summaries and card readings in 2 to 3 sentences', async () => {
+    const testCase = readingEvalCases[0]!;
+    const output = await new MockReadingAgent().interpret(testCase);
+    const sentenceCount = (text: string) => text.match(/[.!?](?=\s|$|”)/gu)?.length ?? 0;
+
+    expect(output.summary).toContain('가까운 흐름');
+    expect(sentenceCount(output.summary)).toBeGreaterThanOrEqual(2);
+    expect(sentenceCount(output.summary)).toBeLessThanOrEqual(3);
+    for (const card of output.cards) {
+      expect(card.interpretation).toMatch(/기운|흐름/);
+      expect(sentenceCount(card.interpretation)).toBeGreaterThanOrEqual(2);
+      expect(sentenceCount(card.interpretation)).toBeLessThanOrEqual(3);
     }
   });
 });

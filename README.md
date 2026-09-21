@@ -63,6 +63,12 @@ pnpm build
 
 Playwright 브라우저를 설치한 환경에서는 `pnpm test:e2e`로 홈 화면 접근성 검사를 실행합니다. 실제 모델 평가는 비용과 키가 필요하므로 일반 CI에서 실행하지 않습니다.
 
+## CI/CD
+
+GitHub Actions는 pull request와 `main` push마다 콘텐츠, 포맷, lint, 타입, 단위·통합·브라우저 테스트, 빌드, Docker 전체 타깃과 Terraform을 검증합니다. 검증을 통과한 `main`은 API, worker, web, migration 이미지를 GHCR에 커밋 SHA 기반 불변 태그로 게시하고 정적 web bundle을 artifact로 보관합니다.
+
+실제 AWS 인프라는 아직 적용하지 않으므로 ECS/S3 배포는 자동 실행하지 않습니다. 권한 구성, 이미지 목록, AWS 연결 절차는 [CI/CD 운영 문서](docs/ci-cd.md)를 참고하세요.
+
 ## 개인정보와 안전
 
 - 익명 세션 쿠키는 HttpOnly이며 서버에는 키 해시만 저장합니다.
@@ -73,4 +79,4 @@ Playwright 브라우저를 설치한 환경에서는 `pnpm test:e2e`로 홈 화�
 
 ## Git 정책
 
-저장소의 기존 Git 작성자 설정을 사용하며 자동화 도구 이름이나 공동 작성자 trailer를 커밋에 추가하지 않습니다. 원격 저장소는 구성되어 있지 않습니다.
+저장소의 기존 Git 작성자 설정을 사용하며 자동화 도구 이름이나 공동 작성자 trailer를 커밋에 추가하지 않습니다. `main` 원격 저장소는 GitHub에 연결되어 있습니다.

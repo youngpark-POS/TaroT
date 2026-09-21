@@ -49,10 +49,10 @@ async function processOne() {
   try {
     const { reading, input } = await buildInput(job.readingId);
     const result = await readingAgent.interpret(input);
-    await repository.updateReading(reading.id, {
-      status: 'completed',
-      resultEncrypted: encrypt(result, config.DATA_ENCRYPTION_KEY),
-    });
+    await repository.savePreparedInterpretation(
+      reading.id,
+      encrypt(result, config.DATA_ENCRYPTION_KEY),
+    );
     await repository.completeJob(job.id);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown interpretation error';
@@ -69,10 +69,10 @@ async function processOne() {
       try {
         const { reading, input } = await buildInput(job.readingId);
         const fallback = createFallbackResult(input);
-        await repository.updateReading(reading.id, {
-          status: 'failed',
-          resultEncrypted: encrypt(fallback, config.DATA_ENCRYPTION_KEY),
-        });
+        await repository.savePreparedInterpretation(
+          reading.id,
+          encrypt(fallback, config.DATA_ENCRYPTION_KEY),
+        );
       } catch (fallbackError) {
         console.error(
           JSON.stringify({
