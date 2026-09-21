@@ -1,4 +1,4 @@
-FROM node:24-bookworm-slim AS workspace
+FROM node:25-bookworm-slim AS workspace
 WORKDIR /workspace
 RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.base.json ./
@@ -23,7 +23,7 @@ RUN pnpm build
 FROM workspace AS tooling
 CMD ["pnpm", "db:migrate"]
 
-FROM node:24-bookworm-slim AS runtime
+FROM node:25-bookworm-slim AS runtime
 WORKDIR /workspace
 ENV NODE_ENV=production
 COPY --from=build /workspace /workspace
