@@ -12,12 +12,12 @@
   },
   "dependencies": {
     "@tarot/contracts": "workspace:*",
-    "sharp": "^0.34.3",
+    "sharp": "^0.35.4",
     "zod": "^4.1.5"
   },
   "devDependencies": {
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
   }
 }

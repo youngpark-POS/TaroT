@@ -11,7 +11,7 @@
     "eval:readings": "tsx evals/run-reading-eval.ts"
   },
   "dependencies": {
-    "@openai/agents": "^0.17.0",
+    "@openai/agents": "^0.18.0",
     "@tarot/contracts": "workspace:*",
     "@tarot/domain": "workspace:*",
     "zod": "^4.1.5"
@@ -19,7 +19,7 @@
   "devDependencies": {
     "@tarot/content": "workspace:*",
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2",
-    "vitest": "^3.2.4"
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.1"
   }
 }
