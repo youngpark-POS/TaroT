@@ -35,7 +35,7 @@ CMD ["node", "apps/api/dist/server.cjs"]
 FROM runtime AS worker
 CMD ["node", "apps/worker/dist/worker.cjs"]
 
-FROM nginx:1.29-alpine AS web
+FROM nginx:1.31-alpine AS web
 COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /workspace/apps/web/dist /usr/share/nginx/html
 EXPOSE 80
