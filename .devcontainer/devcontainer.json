@@ -1,0 +1,29 @@
+{
+  "name": "TaroT (Node 24)",
+  "dockerComposeFile": ["../docker-compose.yml", "docker-compose.devcontainer.yml"],
+  "service": "dev",
+  "workspaceFolder": "/workspace",
+  "remoteUser": "node",
+  "overrideCommand": false,
+  "runServices": ["db", "dev"],
+  "shutdownAction": "stopCompose",
+  "forwardPorts": [4000, 5173],
+  "portsAttributes": {
+    "4000": {
+      "label": "TaroT API"
+    },
+    "5173": {
+      "label": "TaroT web"
+    }
+  },
+  "postCreateCommand": "git config --global --add safe.directory /workspace && git config --global core.autocrlf input && corepack pnpm config set store-dir /pnpm/store && corepack pnpm install --frozen-lockfile",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}

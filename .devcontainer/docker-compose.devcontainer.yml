@@ -1,0 +1,50 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: sleep infinity
+    working_dir: /workspace
+    environment:
+      DATABASE_URL: postgres://tarot:tarot@db:5432/tarot
+      WEB_ORIGIN: http://localhost:5173
+      COOKIE_SECURE: 'false'
+      AI_MODE: ${AI_MODE:-mock}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      SPREAD_MODEL: ${SPREAD_MODEL:-gpt-5.6-luna}
+      READING_MODEL: ${READING_MODEL:-gpt-5.6-terra}
+      DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:-local-development-encryption-key-change-me}
+      SESSION_HMAC_KEY: ${SESSION_HMAC_KEY:-local-development-session-key-change-me}
+      RATE_LIMIT_HMAC_KEY: ${RATE_LIMIT_HMAC_KEY:-local-development-rate-limit-key}
+      PNPM_STORE_DIR: /pnpm/store
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      # Source is mounted for live editing. Dependency directories are replaced
+      # with Linux Docker volumes so host (notably Windows) binaries never load.
+      - .:/workspace:cached
+      - tarot-dev-node-modules:/workspace/node_modules
+      - tarot-dev-api-node-modules:/workspace/apps/api/node_modules
+      - tarot-dev-web-node-modules:/workspace/apps/web/node_modules
+      - tarot-dev-worker-node-modules:/workspace/apps/worker/node_modules
+      - tarot-dev-agents-node-modules:/workspace/packages/agents/node_modules
+      - tarot-dev-content-node-modules:/workspace/packages/content/node_modules
+      - tarot-dev-contracts-node-modules:/workspace/packages/contracts/node_modules
+      - tarot-dev-database-node-modules:/workspace/packages/database/node_modules
+      - tarot-dev-domain-node-modules:/workspace/packages/domain/node_modules
+      - tarot-dev-runtime-node-modules:/workspace/packages/runtime/node_modules
+      - tarot-dev-pnpm-store:/pnpm/store
+
+volumes:
+  tarot-dev-node-modules:
+  tarot-dev-api-node-modules:
+  tarot-dev-web-node-modules:
+  tarot-dev-worker-node-modules:
+  tarot-dev-agents-node-modules:
+  tarot-dev-content-node-modules:
+  tarot-dev-contracts-node-modules:
+  tarot-dev-database-node-modules:
+  tarot-dev-domain-node-modules:
+  tarot-dev-runtime-node-modules:
+  tarot-dev-pnpm-store:
