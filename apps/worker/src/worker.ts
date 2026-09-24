@@ -9,6 +9,7 @@ const { readingAgent } = createAgentGateways({
   mode: config.AI_MODE,
   spreadModel: config.SPREAD_MODEL,
   readingModel: config.READING_MODEL,
+  apiKey: config.OPENAI_API_KEY,
 });
 let running = true;
 let lastCleanup = 0;

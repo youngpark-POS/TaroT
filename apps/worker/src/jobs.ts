@@ -46,6 +46,7 @@ export function createAgentJobProcessor(config: AppConfig, repository: TarotRepo
     mode: config.AI_MODE,
     spreadModel: config.SPREAD_MODEL,
     readingModel: config.READING_MODEL,
+    apiKey: config.OPENAI_API_KEY,
   });
 
   return {

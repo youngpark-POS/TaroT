@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { spreads } from '@tarot/content';
-import { MockReadingAgent, MockSpreadAgent } from './index.js';
+import { createAgentGateways, MockReadingAgent, MockSpreadAgent } from './index.js';
 import { spreadEvalCases } from '../evals/spread-cases.js';
 import { readingEvalCases } from '../evals/reading-cases.js';
 
@@ -13,6 +13,18 @@ describe('MockSpreadAgent', () => {
     });
     expect(output.recommendations[0]?.spreadId).toBe('relationship-mirror');
     expect(output.recommendations).toHaveLength(3);
+  });
+});
+
+describe('OpenAI agent configuration', () => {
+  it('requires an explicitly supplied API key', () => {
+    expect(() =>
+      createAgentGateways({
+        mode: 'openai',
+        spreadModel: 'test-spread-model',
+        readingModel: 'test-reading-model',
+      }),
+    ).toThrow('OpenAI API key is required');
   });
 });
 
