@@ -13,8 +13,16 @@ This stack deploys the TaroT SPA to private S3 and the API/agent workers to Lamb
    terraform -chdir=infra/terraform/serverless-temp/bootstrap init
    terraform -chdir=infra/terraform/serverless-temp/bootstrap apply `
      -var="github_owner=YOUR_OWNER" `
-     -var="github_repository=YOUR_REPOSITORY"
+     -var="github_repository=YOUR_REPOSITORY" `
+     -var="github_owner_id=YOUR_OWNER_ID" `
+     -var="github_repository_id=YOUR_REPOSITORY_ID"
    ```
+
+   GitHub repositories created after July 15, 2026 use immutable OIDC subjects by
+   default. Read `sub_claim_prefix` from
+   `GET /repos/OWNER/REPOSITORY/actions/oidc/customization/sub` and provide both
+   immutable IDs. Omit both ID variables only for a repository that still emits
+   the legacy name-only subject.
 
 4. Create the protected GitHub Environment `aws-temp` with required reviewers.
 5. Add repository/environment variables from the bootstrap outputs:

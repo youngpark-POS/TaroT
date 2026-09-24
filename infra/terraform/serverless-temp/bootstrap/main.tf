@@ -1,6 +1,11 @@
 locals {
   name       = "tarot-temp"
   account_id = data.aws_caller_identity.current.account_id
+  github_subject_repository = (
+    var.github_owner_id != null && var.github_repository_id != null
+    ? "${var.github_owner}@${var.github_owner_id}/${var.github_repository}@${var.github_repository_id}"
+    : "${var.github_owner}/${var.github_repository}"
+  )
 }
 
 resource "aws_s3_bucket" "state" {
@@ -51,7 +56,7 @@ data "aws_iam_policy_document" "github_assume" {
       test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:${var.github_owner}/${var.github_repository}:environment:${var.github_environment}"
+        "repo:${local.github_subject_repository}:environment:${var.github_environment}"
       ]
     }
   }
