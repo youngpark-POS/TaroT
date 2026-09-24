@@ -93,6 +93,18 @@ data "aws_iam_policy_document" "github_deploy" {
     resources = ["arn:aws:lambda:${var.aws_region}:${local.account_id}:function:tarot-temp-*"]
   }
   statement {
+    actions = [
+      "lambda:CreateEventSourceMapping", "lambda:GetEventSourceMapping",
+      "lambda:UpdateEventSourceMapping", "lambda:DeleteEventSourceMapping",
+      "lambda:TagResource", "lambda:UntagResource", "lambda:ListTags"
+    ]
+    resources = ["arn:aws:lambda:${var.aws_region}:${local.account_id}:event-source-mapping:*"]
+  }
+  statement {
+    actions   = ["lambda:ListEventSourceMappings"]
+    resources = ["*"]
+  }
+  statement {
     actions   = ["dynamodb:*"]
     resources = ["arn:aws:dynamodb:${var.aws_region}:${local.account_id}:table/tarot-temp-*"]
   }
