@@ -71,7 +71,8 @@ data "aws_iam_policy_document" "github_deploy" {
   statement {
     actions = [
       "s3:CreateBucket", "s3:DeleteBucket", "s3:ListBucket", "s3:ListBucketVersions",
-      "s3:GetBucket*", "s3:GetLifecycleConfiguration", "s3:GetReplicationConfiguration",
+      "s3:GetBucket*", "s3:GetAccelerateConfiguration",
+      "s3:GetLifecycleConfiguration", "s3:GetReplicationConfiguration",
       "s3:GetEncryptionConfiguration", "s3:PutBucketPolicy", "s3:DeleteBucketPolicy",
       "s3:PutBucketVersioning", "s3:PutEncryptionConfiguration",
       "s3:PutBucketPublicAccessBlock", "s3:PutBucketTagging"
