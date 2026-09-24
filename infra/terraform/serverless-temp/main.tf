@@ -282,17 +282,16 @@ resource "aws_lambda_function" "api" {
 }
 
 resource "aws_lambda_function" "worker" {
-  function_name                  = "${local.name}-worker"
-  filename                       = var.worker_package_path
-  source_code_hash               = var.worker_source_code_hash
-  role                           = aws_iam_role.worker.arn
-  handler                        = "lambda.handler"
-  runtime                        = "nodejs24.x"
-  architectures                  = ["arm64"]
-  memory_size                    = 1024
-  timeout                        = 180
-  reserved_concurrent_executions = 2
-  publish                        = true
+  function_name    = "${local.name}-worker"
+  filename         = var.worker_package_path
+  source_code_hash = var.worker_source_code_hash
+  role             = aws_iam_role.worker.arn
+  handler          = "lambda.handler"
+  runtime          = "nodejs24.x"
+  architectures    = ["arm64"]
+  memory_size      = 1024
+  timeout          = 180
+  publish          = true
   environment { variables = local.common_environment }
   depends_on = [aws_cloudwatch_log_group.worker, aws_iam_role_policy_attachment.worker_logs]
 }
@@ -340,6 +339,10 @@ resource "aws_lambda_event_source_mapping" "worker" {
   function_name           = aws_lambda_alias.worker.arn
   batch_size              = 1
   function_response_types = ["ReportBatchItemFailures"]
+
+  scaling_config {
+    maximum_concurrency = 2
+  }
 }
 
 resource "aws_cloudwatch_event_rule" "cleanup" {
