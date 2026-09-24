@@ -1,4 +1,4 @@
-import { Agent, run, setTracingDisabled, tool } from '@openai/agents';
+import { Agent, run, setDefaultOpenAIKey, setTracingDisabled, tool } from '@openai/agents';
 import {
   readingResultSchema,
   spreadAgentOutputSchema,
@@ -213,8 +213,11 @@ export function createAgentGateways(config: {
   mode: 'mock' | 'openai';
   spreadModel: string;
   readingModel: string;
+  apiKey?: string | undefined;
 }): { spreadAgent: SpreadAgentGateway; readingAgent: ReadingAgentGateway } {
   if (config.mode === 'openai') {
+    if (!config.apiKey) throw new Error('OpenAI API key is required in openai mode.');
+    setDefaultOpenAIKey(config.apiKey);
     return {
       spreadAgent: new OpenAISpreadAgent(config.spreadModel),
       readingAgent: new OpenAIReadingAgent(config.readingModel),
