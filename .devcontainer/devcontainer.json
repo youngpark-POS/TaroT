@@ -16,7 +16,7 @@
       "label": "TaroT web"
     }
   },
-  "postCreateCommand": "git config --global --add safe.directory /workspace && git config --global core.autocrlf input && corepack pnpm config set store-dir /pnpm/store && corepack pnpm install --frozen-lockfile",
+  "postCreateCommand": "git config --global --add safe.directory /workspace && git config --global core.autocrlf input && corepack pnpm config set store-dir /pnpm/store && corepack pnpm install --frozen-lockfile --force",
   "customizations": {
     "vscode": {
       "extensions": [

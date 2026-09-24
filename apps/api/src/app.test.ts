@@ -1,5 +1,5 @@
 import { cards, spreads } from '@tarot/content';
-import type { StoredReading, TarotRepository } from '@tarot/database';
+import type { StoredReading, TarotRepository, TarotRepositoryPort } from '@tarot/database';
 import { encrypt, keyedHash, loadConfig } from '@tarot/runtime';
 import { afterEach, describe, expect, it } from 'vitest';
 import { buildApp } from './app.js';
@@ -89,6 +89,26 @@ describe('prepared interpretation flow', () => {
         id === reading.id && (!hash || hash === reading.sessionHash) ? reading : null,
       updateReading: async (_id: string, values: Partial<StoredReading>) => {
         reading = { ...reading, ...values, updatedAt: new Date() };
+        return true;
+      },
+      advanceReveal: async (
+        _id: string,
+        _expectedRevealedCount: number,
+        nextRevealedCount: number,
+        finished: boolean,
+      ) => {
+        const status = finished
+          ? reading.resultEncrypted
+            ? ('completed' as const)
+            : ('interpreting' as const)
+          : ('revealing' as const);
+        reading = {
+          ...reading,
+          status,
+          state: { ...reading.state, revealedCount: nextRevealedCount },
+          updatedAt: new Date(),
+        };
+        return status;
       },
       enqueueInterpretation: async (_id: string, readingId: string) => {
         enqueuedReadingIds.push(readingId);
@@ -122,5 +142,44 @@ describe('prepared interpretation flow', () => {
     expect(reveal.statusCode).toBe(200);
     expect(reveal.json()).toMatchObject({ status: 'completed', nextPositionIndex: null });
     expect(reading.status).toBe('completed');
+  });
+});
+
+describe('serverless recommendation flow', () => {
+  let app: Awaited<ReturnType<typeof buildApp>> | undefined;
+
+  afterEach(async () => {
+    await app?.close();
+  });
+
+  it('returns 202 and dispatches only an opaque recommendation job', async () => {
+    let stored: StoredReading | undefined;
+    const dispatched: Array<{ readingId: string; version: number }> = [];
+    const repository = {
+      asyncAgents: true,
+      close: async () => undefined,
+      listSpreads: async () => spreads,
+      listCards: async () => cards,
+      consumeRateLimit: async () => ({ allowed: true, remaining: 4 }),
+      createReading: async (reading: StoredReading) => {
+        stored = reading;
+      },
+      enqueueRecommendation: async (readingId: string, version: number) => {
+        dispatched.push({ readingId, version });
+      },
+    } as unknown as TarotRepositoryPort;
+    app = await buildApp({ config: loadConfig({ NODE_ENV: 'test' }), repository });
+
+    const response = await app.inject({
+      method: 'POST',
+      url: '/v1/readings',
+      payload: { question: '새로운 일을 시작해도 괜찮을까요?' },
+    });
+
+    expect(response.statusCode).toBe(202);
+    expect(response.headers['retry-after']).toBe('2');
+    expect(response.json()).toMatchObject({ status: 'recommending', recommendations: [] });
+    expect(stored?.state.dispatchPending).toEqual({ type: 'recommend_spread', version: 1 });
+    expect(dispatched).toEqual([{ readingId: stored?.id, version: 1 }]);
   });
 });

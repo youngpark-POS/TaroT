@@ -6,10 +6,15 @@
   "exports": "./src/index.ts",
   "scripts": {
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "migrate": "tsx src/migrate.ts",
-    "seed": "tsx src/seed.ts"
+    "seed": "tsx src/seed.ts",
+    "seed:dynamo": "tsx src/seed-dynamo.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.893.0",
+    "@aws-sdk/client-sqs": "^3.893.0",
+    "@aws-sdk/lib-dynamodb": "^3.893.0",
     "@tarot/content": "workspace:*",
     "@tarot/contracts": "workspace:*",
     "drizzle-orm": "^0.44.5",
@@ -18,6 +23,7 @@
   "devDependencies": {
     "@types/pg": "^8.15.5",
     "tsx": "^4.20.5",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   }
 }

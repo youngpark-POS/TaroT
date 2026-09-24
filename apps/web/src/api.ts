@@ -12,10 +12,19 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const headers = new Headers(init?.headers);
+  headers.set('Content-Type', 'application/json');
+  if (['POST', 'PUT', 'PATCH'].includes(init?.method ?? '') && typeof init?.body === 'string') {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(init.body));
+    const hash = Array.from(new Uint8Array(digest), (byte) =>
+      byte.toString(16).padStart(2, '0'),
+    ).join('');
+    headers.set('x-amz-content-sha256', hash);
+  }
   const response = await fetch(`${baseUrl}${path}`, {
     ...init,
     credentials: 'include',
-    headers: { 'Content-Type': 'application/json', ...init?.headers },
+    headers,
   });
   const body = await response.json().catch(() => null);
   if (!response.ok) {

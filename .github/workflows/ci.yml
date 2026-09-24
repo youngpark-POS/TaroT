@@ -89,6 +89,22 @@ jobs:
         run: terraform validate
         working-directory: infra/terraform
 
+      - name: Initialize temporary serverless Terraform
+        run: terraform init -backend=false
+        working-directory: infra/terraform/serverless-temp
+
+      - name: Validate temporary serverless Terraform
+        run: terraform validate
+        working-directory: infra/terraform/serverless-temp
+
+      - name: Initialize deployment bootstrap Terraform
+        run: terraform init -backend=false
+        working-directory: infra/terraform/serverless-temp/bootstrap
+
+      - name: Validate deployment bootstrap Terraform
+        run: terraform validate
+        working-directory: infra/terraform/serverless-temp/bootstrap
+
   container-build:
     name: Build ${{ matrix.name }} image
     needs: quality
@@ -196,6 +212,8 @@ jobs:
       - name: Write delivery summary
         shell: bash
         run: |
-          echo "### ${{ matrix.name }} delivered" >> "$GITHUB_STEP_SUMMARY"
-          echo "\`${{ steps.image.outputs.name }}:sha-${{ github.sha }}\`" >> "$GITHUB_STEP_SUMMARY"
-          echo "Digest: \`${{ steps.push.outputs.digest }}\`" >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### ${{ matrix.name }} delivered"
+            echo "\`${{ steps.image.outputs.name }}:sha-${{ github.sha }}\`"
+            echo "Digest: \`${{ steps.push.outputs.digest }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

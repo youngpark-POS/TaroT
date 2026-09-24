@@ -119,6 +119,35 @@ function CrisisBanner({ crisis }: { crisis: boolean }) {
   );
 }
 
+function RecommendationPending() {
+  return (
+    <section className="center-panel narrow" role="status" aria-live="polite">
+      <span className="moon-loader" aria-hidden="true">
+        ◐
+      </span>
+      <p className="step-label">질문을 살펴보는 중</p>
+      <h1>어울리는 스프레드를 고르고 있어요.</h1>
+      <p className="muted">잠시만 기다려 주세요. 이 화면을 새로고침해도 이어서 진행돼요.</p>
+    </section>
+  );
+}
+
+function FailedReading() {
+  return (
+    <section className="center-panel narrow" role="alert">
+      <p className="step-label">안전을 먼저 살펴볼게요</p>
+      <h1>이 질문에는 타로 해석을 제공할 수 없어요.</h1>
+      <p className="muted">
+        타로 대신 신뢰할 수 있는 사람이나 관련 분야의 전문가와 상황을 나눠 주세요. 즉각적인 위험이
+        있다면 자살예방상담전화 109, 경찰 112 또는 구급·소방 119에 바로 연락해 주세요.
+      </p>
+      <Link className="primary-button link-button" to="/">
+        새 질문 시작하기
+      </Link>
+    </section>
+  );
+}
+
 function Clarification({ reading }: { reading: PublicReading }) {
   const [answer, setAnswer] = useState('');
   const queryClient = useQueryClient();
@@ -437,15 +466,14 @@ function ReadingPage() {
     queryKey: ['reading', id],
     queryFn: () => api.getReading(id!),
     enabled: Boolean(id),
-    refetchInterval: (query) => (query.state.data?.status === 'interpreting' ? 1_500 : false),
+    refetchInterval: (query) =>
+      ['recommending', 'interpreting'].includes(query.state.data?.status ?? '') ? 1_500 : false,
   });
   const resultQuery = useQuery({
     queryKey: ['result', id],
     queryFn: () => api.getResult(id!),
     enabled:
-      readingQuery.data?.status === 'interpreting' ||
-      readingQuery.data?.status === 'completed' ||
-      readingQuery.data?.status === 'failed',
+      readingQuery.data?.status === 'interpreting' || readingQuery.data?.status === 'completed',
     refetchInterval: (query) => (query.state.data ? false : 1_500),
   });
   if (readingQuery.isPending)
@@ -469,6 +497,11 @@ function ReadingPage() {
     <>
       <CrisisBanner crisis={reading.crisis} />
       <AnimatePresence mode="wait">
+        {reading.status === 'recommending' && (
+          <motion.div key="recommending" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <RecommendationPending />
+          </motion.div>
+        )}
         {reading.status === 'needs_clarification' && (
           <motion.div key="clarification" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <Clarification reading={reading} />
@@ -484,9 +517,14 @@ function ReadingPage() {
             <CardStage reading={reading} />
           </motion.div>
         )}
-        {['completed', 'failed'].includes(reading.status) && resultQuery.data && (
+        {reading.status === 'completed' && resultQuery.data && (
           <motion.div key="result" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <ResultView reading={reading} result={resultQuery.data} />
+          </motion.div>
+        )}
+        {reading.status === 'failed' && (
+          <motion.div key="failed" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <FailedReading />
           </motion.div>
         )}
       </AnimatePresence>

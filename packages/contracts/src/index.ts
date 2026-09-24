@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 export const readingStatusSchema = z.enum([
+  'recommending',
   'needs_clarification',
   'awaiting_spread',
   'revealing',

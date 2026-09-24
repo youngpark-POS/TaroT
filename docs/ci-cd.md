@@ -29,9 +29,17 @@
 
 ## AWS 실제 배포 연결
 
-현재 Terraform은 비용 발생과 잘못된 공개 배포를 막기 위해 ECS 서비스와 ALB를 만들지 않는 검증용 골격입니다. 따라서 현재 CD의 경계는 검증된 이미지와 웹 bundle을 게시하는 단계까지입니다.
+장기 ECS/RDS Terraform은 여전히 검증용 골격으로 유지합니다. 별도로
+`infra/terraform/serverless-temp`와 `Deploy temporary serverless AWS` workflow가 임시
+Lambda/S3 스택을 실제 배포합니다.
 
-AWS 환경이 준비되면 다음 순서로 연결합니다.
+임시 배포는 `main` CI 성공 뒤 보호된 `aws-temp` environment 승인을 기다리고, GitHub OIDC
+역할로 Terraform plan/apply, DynamoDB 콘텐츠 seed, S3 동기화, CloudFront invalidation과 health
+smoke test를 실행합니다. 배포 도중 실패하면 직전 Lambda alias와 SPA 파일을 복구합니다. 특정
+커밋으로 되돌릴 때는 수동 실행의 `git_sha`에 해당 SHA를 입력합니다. Bootstrap, secret 입력,
+종료 절차는 [임시 서버리스 런북](../infra/terraform/serverless-temp/README.md)을 따릅니다.
+
+장기 AWS 환경이 준비되면 다음 순서로 ECS/RDS 배포를 연결합니다.
 
 1. GitHub의 `production` environment에 main 브랜치 보호 및 필요 시 승인자를 설정합니다.
 2. 장기 AWS access key 대신 GitHub OIDC를 신뢰하는 최소 권한 IAM role을 만듭니다.

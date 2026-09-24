@@ -55,16 +55,25 @@ async function processOne() {
     );
     await repository.completeJob(job.id);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown interpretation error';
+    const errorType = error instanceof Error ? error.name : 'UnknownError';
     console.error(
       JSON.stringify({
         event: 'interpretation_failed',
         jobId: job.id,
         attempts: job.attempts,
-        message,
+        errorType,
       }),
     );
-    const failed = await repository.retryOrFailJob(job.id, message, job.attempts);
+    if (error instanceof Error && error.name === 'ModelRefusalError') {
+      await repository.updateReading(job.readingId, { status: 'failed' });
+      await repository.completeJob(job.id);
+      return true;
+    }
+    const failed = await repository.retryOrFailJob(
+      job.id,
+      'Interpretation attempt failed.',
+      job.attempts,
+    );
     if (failed) {
       try {
         const { reading, input } = await buildInput(job.readingId);
@@ -78,7 +87,7 @@ async function processOne() {
           JSON.stringify({
             event: 'fallback_failed',
             jobId: job.id,
-            message: String(fallbackError),
+            errorType: fallbackError instanceof Error ? fallbackError.name : 'UnknownFallbackError',
           }),
         );
       }
