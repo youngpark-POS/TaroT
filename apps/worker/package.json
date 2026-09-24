@@ -7,17 +7,21 @@
     "dev": "tsx watch src/worker.ts",
     "start": "node dist/worker.cjs",
     "build": "tsup",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
   },
   "dependencies": {
     "@tarot/agents": "workspace:*",
+    "@tarot/content": "workspace:*",
     "@tarot/contracts": "workspace:*",
     "@tarot/database": "workspace:*",
     "@tarot/runtime": "workspace:*"
   },
   "devDependencies": {
+    "@types/aws-lambda": "^8.10.152",
     "tsx": "^4.20.5",
     "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
   }
 }

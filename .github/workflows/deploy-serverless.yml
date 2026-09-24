@@ -1,0 +1,206 @@
+name: Deploy temporary serverless AWS
+
+on:
+  workflow_run:
+    workflows: [ci-cd]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      git_sha:
+        description: Commit SHA to deploy or roll back to
+        required: false
+        type: string
+
+concurrency:
+  group: aws-temp-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  NODE_VERSION: '24'
+  PNPM_VERSION: '10.15.1'
+  AWS_REGION: ${{ vars.AWS_REGION || 'ap-northeast-2' }}
+  TF_DIR: infra/terraform/serverless-temp
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment: aws-temp
+    steps:
+      - name: Resolve revision
+        id: revision
+        shell: bash
+        env:
+          REQUESTED_SHA: ${{ inputs.git_sha }}
+          COMPLETED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: echo "sha=${REQUESTED_SHA:-$COMPLETED_SHA}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ steps.revision.outputs.sha }}
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.13.3
+
+      - name: Configure AWS credentials with OIDC
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install and build
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Package Lambda functions
+        shell: bash
+        run: |
+          mkdir -p "$TF_DIR/artifacts"
+          zip -j "$TF_DIR/artifacts/api.zip" apps/api/dist/lambda.cjs
+          zip -j "$TF_DIR/artifacts/worker.zip" apps/worker/dist/lambda.cjs
+          zip -j "$TF_DIR/artifacts/cleanup.zip" apps/worker/dist/cleanup-lambda.cjs
+
+      - name: Initialize Terraform remote state
+        run: >-
+          terraform init
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="key=serverless-temp/terraform.tfstate"
+          -backend-config="region=${AWS_REGION}"
+          -backend-config="use_lockfile=true"
+          -backend-config="encrypt=true"
+        working-directory: ${{ env.TF_DIR }}
+
+      - name: Preserve current deployment for rollback
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/tarot-web-rollback"
+          WEB_BUCKET=$(terraform output -raw web_bucket 2>/dev/null || true)
+          API_FUNCTION=$(terraform output -raw api_function_name 2>/dev/null || true)
+          WORKER_FUNCTION=$(terraform output -raw worker_function_name 2>/dev/null || true)
+          CLEANUP_FUNCTION=$(terraform output -raw cleanup_function_name 2>/dev/null || true)
+          {
+            echo "ROLLBACK_WEB_BUCKET=$WEB_BUCKET"
+            echo "ROLLBACK_API_FUNCTION=$API_FUNCTION"
+            echo "ROLLBACK_WORKER_FUNCTION=$WORKER_FUNCTION"
+            echo "ROLLBACK_CLEANUP_FUNCTION=$CLEANUP_FUNCTION"
+            for pair in API:$API_FUNCTION WORKER:$WORKER_FUNCTION CLEANUP:$CLEANUP_FUNCTION; do
+              label=${pair%%:*}
+              function_name=${pair#*:}
+              version=''
+              if [[ -n "$function_name" ]]; then
+                version=$(aws lambda get-alias --function-name "$function_name" --name live --query FunctionVersion --output text 2>/dev/null || true)
+              fi
+              echo "ROLLBACK_${label}_VERSION=$version"
+            done
+          } >> "$GITHUB_ENV"
+          if [[ -n "$WEB_BUCKET" ]]; then
+            aws s3 sync "s3://$WEB_BUCKET" "$RUNNER_TEMP/tarot-web-rollback"
+          fi
+
+      - name: Plan serverless stack
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        env:
+          BUDGET_EMAIL: ${{ vars.BUDGET_NOTIFICATION_EMAIL }}
+        run: |
+          terraform plan -out=tfplan \
+            -var="aws_region=${AWS_REGION}" \
+            -var="api_package_path=artifacts/api.zip" \
+            -var="worker_package_path=artifacts/worker.zip" \
+            -var="cleanup_package_path=artifacts/cleanup.zip" \
+            -var="api_source_code_hash=$(openssl dgst -sha256 -binary artifacts/api.zip | openssl base64 -A)" \
+            -var="worker_source_code_hash=$(openssl dgst -sha256 -binary artifacts/worker.zip | openssl base64 -A)" \
+            -var="cleanup_source_code_hash=$(openssl dgst -sha256 -binary artifacts/cleanup.zip | openssl base64 -A)" \
+            -var="budget_notification_email=${BUDGET_EMAIL}"
+          echo '### Terraform plan actions' >> "$GITHUB_STEP_SUMMARY"
+          terraform show -json tfplan | jq -r '
+            [.resource_changes[]?.change.actions | join("/")] |
+            group_by(.) | map("- \(.[0]): \(length)")[]
+          ' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Apply serverless stack
+        run: terraform apply -auto-approve tfplan
+        working-directory: ${{ env.TF_DIR }}
+
+      - name: Verify application secret is populated
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          SECRET_ARN=$(terraform output -raw application_secret_arn)
+          if ! aws secretsmanager get-secret-value --secret-id "$SECRET_ARN" --query SecretString --output text >/dev/null 2>&1; then
+            echo "Populate the application secret with scripts/set-aws-secret.ps1, then rerun this workflow." >&2
+            exit 1
+          fi
+
+      - name: Seed canonical content
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          CONTENT_TABLE=$(terraform output -raw content_table)
+          cd ../../..
+          CONTENT_TABLE="$CONTENT_TABLE" pnpm --filter @tarot/database seed:dynamo
+
+      - name: Build and upload same-origin web bundle
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          WEB_BUCKET=$(terraform output -raw web_bucket)
+          cd ../../..
+          VITE_API_URL='' pnpm --filter @tarot/web build
+          aws s3 sync apps/web/dist "s3://$WEB_BUCKET" --delete --exclude index.html --cache-control 'public,max-age=31536000,immutable'
+          aws s3 cp apps/web/dist/index.html "s3://$WEB_BUCKET/index.html" --cache-control 'no-cache,no-store,must-revalidate' --content-type 'text/html'
+
+      - name: Invalidate and smoke test
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        run: |
+          DISTRIBUTION_ID=$(terraform output -raw cloudfront_distribution_id)
+          SITE_URL=$(terraform output -raw cloudfront_url)
+          aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths '/index.html' >/dev/null
+          for _attempt in {1..20}; do
+            if curl --fail --silent --show-error "$SITE_URL/health/live" | grep -q '"ok"'; then
+              echo "### Deployed $SITE_URL" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep 15
+          done
+          echo "CloudFront smoke test did not become healthy in time." >&2
+          exit 1
+
+      - name: Restore previous deployment after failure
+        if: ${{ failure() }}
+        shell: bash
+        run: |
+          rollback_alias() {
+            local function_name="$1"
+            local version="$2"
+            if [[ -n "$function_name" && -n "$version" ]]; then
+              aws lambda update-alias --function-name "$function_name" --name live --function-version "$version" >/dev/null
+            fi
+          }
+          rollback_alias "$ROLLBACK_API_FUNCTION" "$ROLLBACK_API_VERSION"
+          rollback_alias "$ROLLBACK_WORKER_FUNCTION" "$ROLLBACK_WORKER_VERSION"
+          rollback_alias "$ROLLBACK_CLEANUP_FUNCTION" "$ROLLBACK_CLEANUP_VERSION"
+          if [[ -n "$ROLLBACK_WEB_BUCKET" && -d "$RUNNER_TEMP/tarot-web-rollback" ]]; then
+            aws s3 sync "$RUNNER_TEMP/tarot-web-rollback" "s3://$ROLLBACK_WEB_BUCKET" --delete
+          fi

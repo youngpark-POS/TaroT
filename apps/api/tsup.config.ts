@@ -1,11 +1,11 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/server.ts'],
+  entry: ['src/server.ts', 'src/lambda.ts'],
   format: ['cjs'],
   outDir: 'dist',
   sourcemap: true,
   clean: true,
-  noExternal: [/^@tarot\//],
+  noExternal: [/.*/],
   outExtension: () => ({ js: '.cjs' }),
 });

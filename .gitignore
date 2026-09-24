@@ -14,3 +14,5 @@ test-results/
 *.tfstate.*
 .vite/
 *.tsbuildinfo
+infra/terraform/serverless-temp/artifacts/
+infra/terraform/serverless-temp/backend.hcl

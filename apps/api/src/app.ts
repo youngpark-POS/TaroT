@@ -19,7 +19,12 @@ import {
   type Spread,
 } from '@tarot/contracts';
 import { CONTENT_VERSION } from '@tarot/content';
-import { TarotRepository, type StoredReading, type StoredReadingState } from '@tarot/database';
+import {
+  createTarotRepository,
+  type StoredReading,
+  type StoredReadingState,
+  type TarotRepositoryPort,
+} from '@tarot/database';
 import { classifySafety, DomainError, drawCards } from '@tarot/domain';
 import {
   decrypt,
@@ -85,7 +90,7 @@ function ensureSession(request: FastifyRequest, reply: FastifyReply, config: App
 }
 
 async function toPublicReading(
-  repository: TarotRepository,
+  repository: TarotRepositoryPort,
   config: AppConfig,
   reading: StoredReading,
 ): Promise<PublicReading> {
@@ -152,9 +157,25 @@ function assertValidRecommendations(
   }
 }
 
-export async function buildApp(overrides?: { config?: AppConfig; repository?: TarotRepository }) {
+const isModelRefusal = (error: unknown) =>
+  error instanceof Error && error.name === 'ModelRefusalError';
+
+export async function buildApp(overrides?: {
+  config?: AppConfig;
+  repository?: TarotRepositoryPort;
+}) {
   const config = overrides?.config ?? loadConfig();
-  const repository = overrides?.repository ?? new TarotRepository(config.DATABASE_URL);
+  const repository =
+    overrides?.repository ??
+    createTarotRepository({
+      STORAGE_DRIVER: config.STORAGE_DRIVER,
+      DATABASE_URL: config.DATABASE_URL,
+      READINGS_TABLE: config.READINGS_TABLE,
+      CONTENT_TABLE: config.CONTENT_TABLE,
+      RATE_LIMITS_TABLE: config.RATE_LIMITS_TABLE,
+      AGENT_QUEUE_URL: config.AGENT_QUEUE_URL,
+      contentVersion: CONTENT_VERSION,
+    });
   const app = Fastify({
     logger: { redact: ['req.headers.cookie', 'req.body.question', 'req.body.answer'] },
     bodyLimit: 16_384,
@@ -168,11 +189,13 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
   });
 
   await app.register(cookie);
-  await app.register(cors, {
-    origin: config.WEB_ORIGIN,
-    credentials: true,
-    methods: ['GET', 'POST'],
-  });
+  if (config.WEB_ORIGIN) {
+    await app.register(cors, {
+      origin: config.WEB_ORIGIN,
+      credentials: true,
+      methods: ['GET', 'POST'],
+    });
+  }
   await app.register(helmet, { contentSecurityPolicy: false });
   await app.register(swagger, {
     openapi: { info: { title: 'TaroT Headless API', version: '1.0.0' }, servers: [{ url: '/v1' }] },
@@ -198,7 +221,12 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
 
   app.post(
     '/v1/readings',
-    { schema: { body: createReadingRequestSchema, response: { 201: publicReadingSchema } } },
+    {
+      schema: {
+        body: createReadingRequestSchema,
+        response: { 201: publicReadingSchema, 202: publicReadingSchema },
+      },
+    },
     async (request, reply) => {
       const { question } = createReadingRequestSchema.parse(request.body);
       const currentSessionHash = ensureSession(request, reply, config);
@@ -217,23 +245,37 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
       }
       const availableSpreads = await repository.listSpreads();
       const safety = classifySafety(question);
-      let recommendation;
-      try {
-        recommendation = await gateways.spreadAgent.recommend({
-          question,
-          clarificationAllowed: true,
-          spreads: availableSpreads,
-        });
-        assertValidRecommendations(recommendation, availableSpreads);
-      } catch (error) {
-        request.log.warn({ err: error }, 'Spread agent failed; using deterministic fallback');
-        recommendation = await new MockSpreadAgent().recommend({
-          question,
-          clarificationAllowed: false,
-          spreads: availableSpreads,
-        });
+      let recommendation = { clarificationQuestion: null, recommendations: [] } as {
+        clarificationQuestion: string | null;
+        recommendations: Array<{ spreadId: string; reason: string }>;
+      };
+      let recommendationRefused = false;
+      if (!repository.asyncAgents) {
+        try {
+          recommendation = await gateways.spreadAgent.recommend({
+            question,
+            clarificationAllowed: true,
+            spreads: availableSpreads,
+          });
+          assertValidRecommendations(recommendation, availableSpreads);
+        } catch (error) {
+          if (isModelRefusal(error)) {
+            recommendationRefused = true;
+          } else {
+            request.log.warn(
+              { errorType: error instanceof Error ? error.name : 'UnknownError' },
+              'Spread agent failed; using deterministic fallback',
+            );
+            recommendation = await new MockSpreadAgent().recommend({
+              question,
+              clarificationAllowed: false,
+              spreads: availableSpreads,
+            });
+          }
+        }
       }
       const id = randomUUID();
+      const recommendationJobVersion = repository.asyncAgents ? 1 : 0;
       const state: StoredReadingState = {
         ...safety,
         clarificationQuestion: recommendation.clarificationQuestion,
@@ -242,11 +284,23 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
         selectedSpreadId: null,
         draw: [],
         revealedCount: 0,
+        recommendationJobVersion,
+        interpretationJobVersion: 0,
+        interpretationStatus: 'idle',
+        dispatchPending: repository.asyncAgents
+          ? { type: 'recommend_spread', version: recommendationJobVersion }
+          : null,
       };
       const reading: StoredReading = {
         id,
         sessionHash: currentSessionHash,
-        status: recommendation.clarificationQuestion ? 'needs_clarification' : 'awaiting_spread',
+        status: repository.asyncAgents
+          ? 'recommending'
+          : recommendationRefused
+            ? 'failed'
+            : recommendation.clarificationQuestion
+              ? 'needs_clarification'
+              : 'awaiting_spread',
         questionEncrypted: encrypt(question, config.DATA_ENCRYPTION_KEY),
         clarificationEncrypted: null,
         resultEncrypted: null,
@@ -257,13 +311,27 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
         updatedAt: new Date(),
       };
       await repository.createReading(reading);
+      if (repository.asyncAgents) {
+        try {
+          await repository.enqueueRecommendation(id, recommendationJobVersion);
+        } catch (error) {
+          request.log.error({ err: error, readingId: id }, 'Recommendation dispatch deferred');
+        }
+        reply.header('Retry-After', '2');
+        return reply.code(202).send(await toPublicReading(repository, config, reading));
+      }
       return reply.code(201).send(await toPublicReading(repository, config, reading));
     },
   );
 
   app.post<{ Params: { id: string } }>(
     '/v1/readings/:id/clarification',
-    { schema: { body: clarificationRequestSchema, response: { 200: publicReadingSchema } } },
+    {
+      schema: {
+        body: clarificationRequestSchema,
+        response: { 200: publicReadingSchema, 202: publicReadingSchema },
+      },
+    },
     async (request, reply) => {
       const body = clarificationRequestSchema.parse(request.body);
       const hash = sessionHash(request, config);
@@ -276,6 +344,39 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
       const question = decrypt<string>(reading.questionEncrypted, config.DATA_ENCRYPTION_KEY);
       const answer = body.skip ? '보충 설명 없이 현재 질문으로 진행' : body.answer!;
       const availableSpreads = await repository.listSpreads();
+      if (repository.asyncAgents) {
+        const jobVersion = (reading.state.recommendationJobVersion ?? 0) + 1;
+        const state: StoredReadingState = {
+          ...reading.state,
+          clarificationQuestion: null,
+          clarificationUsed: true,
+          recommendations: [],
+          recommendationJobVersion: jobVersion,
+          dispatchPending: { type: 'recommend_spread', version: jobVersion },
+        };
+        const updated = await repository.updateReading(
+          reading.id,
+          {
+            status: 'recommending',
+            state,
+            clarificationEncrypted: encrypt(answer, config.DATA_ENCRYPTION_KEY),
+          },
+          { status: 'needs_clarification' },
+        );
+        if (updated === false)
+          throw new DomainError('리딩 상태가 이미 변경되었어요.', 409, 'state_conflict');
+        try {
+          await repository.enqueueRecommendation(reading.id, jobVersion);
+        } catch (error) {
+          request.log.error(
+            { err: error, readingId: reading.id },
+            'Recommendation dispatch deferred',
+          );
+        }
+        const refreshed = await repository.getReading(reading.id, hash);
+        reply.header('Retry-After', '2');
+        return reply.code(202).send(await toPublicReading(repository, config, refreshed!));
+      }
       let recommendation;
       try {
         recommendation = await gateways.spreadAgent.recommend({
@@ -285,7 +386,12 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
           spreads: availableSpreads,
         });
         assertValidRecommendations(recommendation, availableSpreads);
-      } catch {
+      } catch (error) {
+        if (isModelRefusal(error)) {
+          await repository.updateReading(reading.id, { status: 'failed' });
+          const refused = await repository.getReading(reading.id, hash);
+          return reply.send(await toPublicReading(repository, config, refused!));
+        }
         recommendation = await new MockSpreadAgent().recommend({
           question: `${question} ${answer}`,
           clarificationAllowed: false,
@@ -322,7 +428,8 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
       const spread = await repository.getSpread(spreadId);
       if (!spread) throw new DomainError('존재하지 않는 스프레드예요.', 400, 'invalid_spread');
       const deck = await repository.listCards();
-      const state = {
+      const interpretationJobVersion = (reading.state.interpretationJobVersion ?? 0) + 1;
+      const state: StoredReadingState = {
         ...reading.state,
         selectedSpreadId: spread.id,
         draw: drawCards(
@@ -330,9 +437,27 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
           spread.cardCount,
         ),
         revealedCount: 0,
+        interpretationJobVersion,
+        interpretationStatus: 'pending',
+        dispatchPending: repository.asyncAgents
+          ? { type: 'interpret_reading', version: interpretationJobVersion }
+          : null,
       };
-      await repository.updateReading(reading.id, { status: 'revealing', state });
-      await repository.enqueueInterpretation(randomUUID(), reading.id);
+      const selected = await repository.updateReading(
+        reading.id,
+        { status: 'revealing', state },
+        { status: 'awaiting_spread' },
+      );
+      if (selected === false)
+        throw new DomainError('스프레드가 이미 선택되었어요.', 409, 'state_conflict');
+      try {
+        await repository.enqueueInterpretation(randomUUID(), reading.id, interpretationJobVersion);
+      } catch (error) {
+        request.log.error(
+          { err: error, readingId: reading.id },
+          'Interpretation dispatch deferred',
+        );
+      }
       const updated = await repository.getReading(reading.id, hash);
       return reply.send(await toPublicReading(repository, config, updated!));
     },
@@ -392,17 +517,27 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
       };
       const revealedCount = reading.state.revealedCount + 1;
       const finished = revealedCount === spread.cardCount;
-      const state = { ...reading.state, revealedCount };
       let responseStatus: 'revealing' | 'interpreting' | 'completed' = finished
         ? reading.resultEncrypted
           ? 'completed'
           : 'interpreting'
         : 'revealing';
-      await repository.updateReading(reading.id, {
-        status: responseStatus,
-        state,
-      });
-      if (finished) {
+      const advanced = await repository.advanceReveal(
+        reading.id,
+        reading.state.revealedCount,
+        revealedCount,
+        finished,
+      );
+      if (advanced === null) {
+        for (let attempt = 0; attempt < 5; attempt += 1) {
+          const replay = await repository.getIdempotentResponse(request.params.id, keyHeader);
+          if (replay) return reply.send(replay);
+          await new Promise((resolve) => setTimeout(resolve, 25));
+        }
+        throw new DomainError('카드 공개 상태가 이미 변경되었어요.', 409, 'state_conflict');
+      }
+      responseStatus = advanced;
+      if (finished && !repository.asyncAgents) {
         // Compatibility path for readings whose spread was selected before pre-generation existed.
         await repository.enqueueInterpretation(randomUUID(), reading.id);
         const refreshed = await repository.getReading(reading.id, hash);
@@ -470,7 +605,9 @@ export async function buildApp(overrides?: { config?: AppConfig; repository?: Ta
         throw new DomainError('실패한 해석만 다시 요청할 수 있어요.', 409, 'invalid_state');
 
       await repository.restartInterpretation(reading.id);
-      await repository.updateReading(reading.id, { status: 'interpreting' });
+      if (!repository.asyncAgents) {
+        await repository.updateReading(reading.id, { status: 'interpreting' });
+      }
       const updated = await repository.getReading(reading.id, hash);
       return reply.send(await toPublicReading(repository, config, updated!));
     },

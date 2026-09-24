@@ -1,0 +1,50 @@
+name: Destroy temporary serverless AWS
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirmation:
+        description: Type DESTROY-TAROT-TEMP
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  AWS_REGION: ${{ vars.AWS_REGION || 'ap-northeast-2' }}
+  TF_DIR: infra/terraform/serverless-temp
+
+jobs:
+  destroy:
+    if: inputs.confirmation == 'DESTROY-TAROT-TEMP'
+    runs-on: ubuntu-latest
+    environment: aws-temp
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.13.3
+      - uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Create placeholder deployment archives
+        shell: bash
+        run: |
+          mkdir -p "$TF_DIR/artifacts/empty"
+          touch "$TF_DIR/artifacts/empty/placeholder"
+          (cd "$TF_DIR/artifacts/empty" && zip ../api.zip placeholder && cp ../api.zip ../worker.zip && cp ../api.zip ../cleanup.zip)
+      - name: Initialize Terraform
+        run: >-
+          terraform init
+          -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}"
+          -backend-config="key=serverless-temp/terraform.tfstate"
+          -backend-config="region=${AWS_REGION}"
+          -backend-config="use_lockfile=true"
+          -backend-config="encrypt=true"
+        working-directory: ${{ env.TF_DIR }}
+      - name: Destroy app stack
+        run: terraform destroy -auto-approve -var="aws_region=${AWS_REGION}"
+        working-directory: ${{ env.TF_DIR }}
