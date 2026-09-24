@@ -94,10 +94,13 @@ jobs:
         working-directory: ${{ env.TF_DIR }}
         run: |
           mkdir -p "$RUNNER_TEMP/tarot-web-rollback"
-          WEB_BUCKET=$(terraform output -raw web_bucket 2>/dev/null || true)
-          API_FUNCTION=$(terraform output -raw api_function_name 2>/dev/null || true)
-          WORKER_FUNCTION=$(terraform output -raw worker_function_name 2>/dev/null || true)
-          CLEANUP_FUNCTION=$(terraform output -raw cleanup_function_name 2>/dev/null || true)
+          # A brand-new remote state has no outputs. Reading all outputs as JSON
+          # prevents Terraform's warning from being captured as a resource name.
+          TF_OUTPUTS=$(terraform output -json 2>/dev/null || printf '{}')
+          WEB_BUCKET=$(jq -r '.web_bucket.value // empty' <<< "$TF_OUTPUTS")
+          API_FUNCTION=$(jq -r '.api_function_name.value // empty' <<< "$TF_OUTPUTS")
+          WORKER_FUNCTION=$(jq -r '.worker_function_name.value // empty' <<< "$TF_OUTPUTS")
+          CLEANUP_FUNCTION=$(jq -r '.cleanup_function_name.value // empty' <<< "$TF_OUTPUTS")
           {
             echo "ROLLBACK_WEB_BUCKET=$WEB_BUCKET"
             echo "ROLLBACK_API_FUNCTION=$API_FUNCTION"

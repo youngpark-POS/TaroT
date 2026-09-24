@@ -5,8 +5,20 @@ variable "aws_region" {
 variable "github_owner" {
   type = string
 }
+variable "github_owner_id" {
+  type        = string
+  default     = null
+  nullable    = true
+  description = "Immutable GitHub owner ID. Set together with github_repository_id for repositories using immutable OIDC subjects."
+}
 variable "github_repository" {
   type = string
+}
+variable "github_repository_id" {
+  type        = string
+  default     = null
+  nullable    = true
+  description = "Immutable GitHub repository ID. Set together with github_owner_id for repositories using immutable OIDC subjects."
 }
 variable "github_environment" {
   type    = string
