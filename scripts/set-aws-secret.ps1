@@ -19,8 +19,14 @@ if ([string]::IsNullOrWhiteSpace($apiKey)) {
 
 function New-RandomKey {
   $bytes = [byte[]]::new(32)
-  [System.Security.Cryptography.RandomNumberGenerator]::Fill($bytes)
-  return [Convert]::ToBase64String($bytes)
+  $randomNumberGenerator = [System.Security.Cryptography.RandomNumberGenerator]::Create()
+  try {
+    $randomNumberGenerator.GetBytes($bytes)
+    return [Convert]::ToBase64String($bytes)
+  }
+  finally {
+    $randomNumberGenerator.Dispose()
+  }
 }
 
 $payload = @{
