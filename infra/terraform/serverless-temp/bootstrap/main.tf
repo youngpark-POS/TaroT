@@ -95,7 +95,8 @@ data "aws_iam_policy_document" "github_deploy" {
   statement {
     actions = [
       "lambda:CreateEventSourceMapping", "lambda:GetEventSourceMapping",
-      "lambda:UpdateEventSourceMapping", "lambda:DeleteEventSourceMapping"
+      "lambda:UpdateEventSourceMapping", "lambda:DeleteEventSourceMapping",
+      "lambda:TagResource", "lambda:UntagResource", "lambda:ListTags"
     ]
     resources = ["arn:aws:lambda:${var.aws_region}:${local.account_id}:event-source-mapping:*"]
   }
