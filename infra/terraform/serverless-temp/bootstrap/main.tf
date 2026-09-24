@@ -72,6 +72,7 @@ data "aws_iam_policy_document" "github_deploy" {
     actions = [
       "s3:CreateBucket", "s3:DeleteBucket", "s3:ListBucket", "s3:ListBucketVersions",
       "s3:GetBucketLocation", "s3:GetBucketPolicy", "s3:PutBucketPolicy", "s3:DeleteBucketPolicy",
+      "s3:GetBucketAcl",
       "s3:GetBucketVersioning", "s3:PutBucketVersioning", "s3:GetEncryptionConfiguration",
       "s3:PutEncryptionConfiguration", "s3:GetBucketPublicAccessBlock",
       "s3:PutBucketPublicAccessBlock", "s3:GetBucketTagging", "s3:PutBucketTagging"
@@ -108,6 +109,10 @@ data "aws_iam_policy_document" "github_deploy" {
     resources = ["arn:aws:logs:${var.aws_region}:${local.account_id}:log-group:/aws/lambda/tarot-temp-*"]
   }
   statement {
+    actions   = ["logs:DescribeLogGroups"]
+    resources = ["*"]
+  }
+  statement {
     actions   = ["events:*"]
     resources = ["arn:aws:events:${var.aws_region}:${local.account_id}:rule/tarot-temp-*"]
   }
@@ -124,6 +129,14 @@ data "aws_iam_policy_document" "github_deploy" {
   statement {
     actions   = ["iam:GetPolicy"]
     resources = ["arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"]
+  }
+  statement {
+    actions = [
+      "cloudwatch:PutMetricAlarm", "cloudwatch:DeleteAlarms", "cloudwatch:DescribeAlarms",
+      "cloudwatch:ListTagsForResource", "cloudwatch:TagResource", "cloudwatch:UntagResource"
+    ]
+    # CloudWatch alarm APIs do not support resource-level IAM scoping.
+    resources = ["*"]
   }
   statement {
     actions   = ["cloudfront:*", "budgets:*"]
