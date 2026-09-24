@@ -201,7 +201,12 @@ export async function buildApp(overrides?: {
     openapi: { info: { title: 'TaroT Headless API', version: '1.0.0' }, servers: [{ url: '/v1' }] },
     transform: jsonSchemaTransform,
   });
-  await app.register(swaggerUi, { routePrefix: '/docs' });
+  // The Swagger UI package ships static files that are intentionally excluded
+  // from the single-file Lambda bundle. Keep interactive docs for local and
+  // test environments while avoiding a public production docs endpoint.
+  if (config.NODE_ENV !== 'production') {
+    await app.register(swaggerUi, { routePrefix: '/docs' });
+  }
 
   app.addHook('onClose', async () => repository.close());
 

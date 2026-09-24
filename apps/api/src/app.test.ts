@@ -43,6 +43,21 @@ describe('health endpoints', () => {
     expect(document.paths['/readings'].post.requestBody).toBeDefined();
     expect(document.paths['/readings/{id}/reveals'].post.responses['200']).toBeDefined();
   });
+
+  it('does not register the interactive documentation in production', async () => {
+    const repository = {
+      close: async () => undefined,
+      isReady: async () => true,
+    } as unknown as TarotRepository;
+    app = await buildApp({
+      config: loadConfig({ NODE_ENV: 'production' }),
+      repository,
+    });
+
+    const response = await app.inject({ method: 'GET', url: '/docs/json' });
+
+    expect(response.statusCode).toBe(404);
+  });
 });
 
 describe('prepared interpretation flow', () => {
