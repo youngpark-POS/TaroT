@@ -41,6 +41,8 @@ import {
   validatorCompiler,
 } from 'fastify-type-provider-zod';
 import { z, ZodError } from 'zod';
+import { registerMonitoring } from './monitoring.js';
+import { createUsageObserver } from '@tarot/monitoring';
 
 const SESSION_COOKIE = 'tarot_session';
 const DAY_MS = 24 * 60 * 60 * 1_000;
@@ -177,7 +179,22 @@ export async function buildApp(overrides?: {
       contentVersion: CONTENT_VERSION,
     });
   const app = Fastify({
-    logger: { redact: ['req.headers.cookie', 'req.body.question', 'req.body.answer'] },
+    logger: {
+      redact: [
+        'req.headers.cookie',
+        'req.headers.authorization',
+        'res.headers.set-cookie',
+        'req.body.question',
+        'req.body.answer',
+      ],
+      serializers: {
+        req: (request) => ({
+          method: request.method,
+          url: request.url.split('?')[0] ?? '/',
+          id: request.id,
+        }),
+      },
+    },
     bodyLimit: 16_384,
   });
   app.setValidatorCompiler(validatorCompiler);
@@ -187,9 +204,11 @@ export async function buildApp(overrides?: {
     spreadModel: config.SPREAD_MODEL,
     readingModel: config.READING_MODEL,
     apiKey: config.OPENAI_API_KEY,
+    usageObserver: createUsageObserver(config.TELEMETRY_TABLE, config.AWS_REGION),
   });
 
   await app.register(cookie);
+  await registerMonitoring(app, config);
   if (config.WEB_ORIGIN) {
     await app.register(cors, {
       origin: config.WEB_ORIGIN,

@@ -11,6 +11,7 @@ COPY packages/contracts/package.json packages/contracts/package.json
 COPY packages/database/package.json packages/database/package.json
 COPY packages/domain/package.json packages/domain/package.json
 COPY packages/runtime/package.json packages/runtime/package.json
+COPY packages/monitoring/package.json packages/monitoring/package.json
 RUN --mount=type=cache,id=tarot-pnpm,target=/pnpm/store \
     pnpm config set store-dir /pnpm/store && pnpm install --frozen-lockfile
 COPY . .

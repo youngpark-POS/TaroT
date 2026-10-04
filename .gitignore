@@ -12,6 +12,7 @@ test-results/
 .terraform/
 *.tfstate
 *.tfstate.*
+*.tfplan
 .vite/
 *.tsbuildinfo
 infra/terraform/serverless-temp/artifacts/

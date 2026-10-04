@@ -58,7 +58,18 @@ variable "reading_model" {
 }
 
 variable "budget_notification_email" {
+  sensitive   = true
   type        = string
   default     = ""
   description = "Optional email for USD 5 and USD 10 AWS budget alerts."
+}
+
+variable "monitoring_site_origin" {
+  type        = string
+  default     = ""
+  description = "Existing CloudFront origin; passed by deployment to avoid an infrastructure dependency cycle."
+  validation {
+    condition     = var.monitoring_site_origin == "" || can(regex("^https://[a-z0-9]+\\.cloudfront\\.net$", var.monitoring_site_origin))
+    error_message = "Use the existing HTTPS CloudFront origin, without a trailing slash."
+  }
 }

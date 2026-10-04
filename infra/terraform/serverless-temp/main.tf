@@ -1,18 +1,25 @@
 locals {
   name = "tarot-${var.environment}"
   common_environment = {
-    NODE_ENV          = "production"
-    STORAGE_DRIVER    = "dynamodb"
-    WEB_ORIGIN        = ""
-    COOKIE_SECURE     = "true"
-    AI_MODE           = var.ai_mode
-    SPREAD_MODEL      = var.spread_model
-    READING_MODEL     = var.reading_model
-    APP_SECRET_ARN    = aws_secretsmanager_secret.application.arn
-    READINGS_TABLE    = aws_dynamodb_table.readings.name
-    CONTENT_TABLE     = aws_dynamodb_table.content.name
-    RATE_LIMITS_TABLE = aws_dynamodb_table.rate_limits.name
-    AGENT_QUEUE_URL   = aws_sqs_queue.agent_jobs.url
+    NODE_ENV                   = "production"
+    STORAGE_DRIVER             = "dynamodb"
+    WEB_ORIGIN                 = ""
+    COOKIE_SECURE              = "true"
+    AI_MODE                    = var.ai_mode
+    SPREAD_MODEL               = var.spread_model
+    READING_MODEL              = var.reading_model
+    APP_SECRET_ARN             = aws_secretsmanager_secret.application.arn
+    READINGS_TABLE             = aws_dynamodb_table.readings.name
+    CONTENT_TABLE              = aws_dynamodb_table.content.name
+    RATE_LIMITS_TABLE          = aws_dynamodb_table.rate_limits.name
+    AGENT_QUEUE_URL            = aws_sqs_queue.agent_jobs.url
+    TELEMETRY_TABLE            = aws_dynamodb_table.telemetry.name
+    MONITORING_USER_POOL_ID    = aws_cognito_user_pool.monitoring.id
+    MONITORING_CLIENT_ID       = aws_cognito_user_pool_client.monitoring.id
+    MONITORING_AUTH_DOMAIN     = "https://${aws_cognito_user_pool_domain.monitoring.domain}.auth.${var.aws_region}.amazoncognito.com"
+    MONITORING_SITE_ORIGIN     = var.monitoring_site_origin
+    MONITORING_FUNCTION_PREFIX = local.name
+    MONITORING_DLQ_URL         = aws_sqs_queue.agent_jobs_dlq.url
   }
 }
 
