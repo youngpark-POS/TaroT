@@ -397,7 +397,7 @@ export function MonitoringPage() {
                         </dd>
                       </div>
                       <div>
-                        <dt>최근 5분 p95</dt>
+                        <dt>최근 버킷 p95</dt>
                         <dd>
                           {row.durationP95Ms === null ? '—' : `${compact(row.durationP95Ms)}ms`}
                         </dd>

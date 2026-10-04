@@ -266,6 +266,13 @@ export async function awsSnapshot(
   if (results.some((result) => result.status === 'rejected'))
     throw new Error('Monitoring data source unavailable.');
   const metrics = results[0].status === 'fulfilled' ? results[0].value : undefined;
+  if (
+    !metrics?.MetricDataResults ||
+    metrics.MetricDataResults.length !== queries.length ||
+    metrics.MetricDataResults.some((row) => row.StatusCode !== 'Complete')
+  ) {
+    throw new Error('CloudWatch metrics are incomplete.');
+  }
   const values = new Map(metrics?.MetricDataResults?.map((row) => [row.Id, row.Values ?? []]));
   const metric = (id: string) => values.get(id)?.[0] ?? null;
   const totalMetric = (id: string) => (values.get(id) ?? []).reduce((sum, value) => sum + value, 0);
@@ -314,9 +321,6 @@ export async function awsSnapshot(
     })),
     usage,
     warnings: [
-      ...(metrics?.MetricDataResults?.some((row) => row.StatusCode !== 'Complete')
-        ? ['일부 CloudWatch 지표가 아직 준비되지 않았습니다.']
-        : []),
       ...(usage.totals.unreportedRuns > 0
         ? ['일부 실패 호출은 제공자 사용량을 반환하지 않아 토큰 합계에 포함되지 않았습니다.']
         : []),
