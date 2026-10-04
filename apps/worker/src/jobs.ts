@@ -2,6 +2,7 @@ import { MockSpreadAgent, createAgentGateways, createFallbackResult } from '@tar
 import type { Orientation, Spread, SpreadAgentOutput, TarotCard } from '@tarot/contracts';
 import type { AgentJobMessage, StoredReading, TarotRepositoryPort } from '@tarot/database';
 import { decrypt, encrypt, type AppConfig } from '@tarot/runtime';
+import { createUsageObserver } from '@tarot/monitoring';
 
 function assertValidRecommendations(output: SpreadAgentOutput, spreads: Spread[]) {
   const ids = new Set(spreads.map((spread) => spread.id));
@@ -47,6 +48,7 @@ export function createAgentJobProcessor(config: AppConfig, repository: TarotRepo
     spreadModel: config.SPREAD_MODEL,
     readingModel: config.READING_MODEL,
     apiKey: config.OPENAI_API_KEY,
+    usageObserver: createUsageObserver(config.TELEMETRY_TABLE, config.AWS_REGION),
   });
 
   return {

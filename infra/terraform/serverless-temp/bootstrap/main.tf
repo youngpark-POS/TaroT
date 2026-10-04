@@ -154,6 +154,55 @@ data "aws_iam_policy_document" "github_deploy" {
     actions   = ["cloudfront:*", "budgets:*"]
     resources = ["*"]
   }
+  statement {
+    actions   = ["cognito-idp:CreateUserPool"]
+    resources = ["*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:RequestTag/Project"
+      values   = ["TaroT"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:RequestTag/Purpose"
+      values   = ["Monitoring"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:RequestTag/Environment"
+      values   = ["temp"]
+    }
+  }
+  statement {
+    actions = [
+      "cognito-idp:DescribeUserPool", "cognito-idp:UpdateUserPool", "cognito-idp:DeleteUserPool",
+      "cognito-idp:CreateUserPoolClient", "cognito-idp:DescribeUserPoolClient", "cognito-idp:UpdateUserPoolClient", "cognito-idp:DeleteUserPoolClient",
+      "cognito-idp:CreateUserPoolDomain", "cognito-idp:DeleteUserPoolDomain",
+      "cognito-idp:CreateGroup", "cognito-idp:GetGroup", "cognito-idp:UpdateGroup", "cognito-idp:DeleteGroup",
+      "cognito-idp:AdminGetUser", "cognito-idp:AdminCreateUser", "cognito-idp:AdminAddUserToGroup",
+      "cognito-idp:ListTagsForResource", "cognito-idp:TagResource", "cognito-idp:UntagResource"
+    ]
+    resources = ["arn:aws:cognito-idp:${var.aws_region}:${local.account_id}:userpool/*"]
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/Project"
+      values   = ["TaroT"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/Purpose"
+      values   = ["Monitoring"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "aws:ResourceTag/Environment"
+      values   = ["temp"]
+    }
+  }
+  statement {
+    actions   = ["cognito-idp:DescribeUserPoolDomain"]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy" "github_deploy" {

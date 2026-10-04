@@ -65,6 +65,9 @@ importers:
       '@tarot/domain':
         specifier: workspace:*
         version: link:../../packages/domain
+      '@tarot/monitoring':
+        specifier: workspace:*
+        version: link:../../packages/monitoring
       '@tarot/runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
@@ -172,6 +175,9 @@ importers:
       '@tarot/database':
         specifier: workspace:*
         version: link:../../packages/database
+      '@tarot/monitoring':
+        specifier: workspace:*
+        version: link:../../packages/monitoring
       '@tarot/runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
@@ -302,6 +308,34 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7(@types/node@26.6.2)(jiti@2.7.0)(jsdom@26.1.0)(lightningcss@1.32.0)(tsx@4.23.15)(yaml@2.9.1)
 
+  packages/monitoring:
+    dependencies:
+      '@aws-sdk/client-cloudwatch':
+        specifier: ^3.883.0
+        version: 3.1146.0
+      '@aws-sdk/client-dynamodb':
+        specifier: ^3.883.0
+        version: 3.1138.0
+      '@aws-sdk/client-sqs':
+        specifier: ^3.883.0
+        version: 3.1138.0
+      '@aws-sdk/lib-dynamodb':
+        specifier: ^3.883.0
+        version: 3.1138.0(@aws-sdk/client-dynamodb@3.1138.0)
+      '@tarot/contracts':
+        specifier: workspace:*
+        version: link:../contracts
+      jose:
+        specifier: ^6.1.0
+        version: 6.2.12
+    devDependencies:
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.7(@types/node@26.6.2)(jiti@2.7.0)(jsdom@26.1.0)(lightningcss@1.32.0)(tsx@4.23.15)(yaml@2.9.1)
+
   packages/runtime:
     dependencies:
       '@aws-sdk/client-secrets-manager':
@@ -322,6 +356,10 @@ packages:
 
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
+
+  '@aws-sdk/client-cloudwatch@3.1146.0':
+    resolution: {integrity: sha512-K84tWT/Xe21eSZK7NzkqNT15jctmTg5QjAylDOI2PLcq6yV14ydhXmc/JFptv8kimDC3IKgN3+UoX/NSuXC1jQ==}
+    engines: {node: '>=20.0.0'}
 
   '@aws-sdk/client-dynamodb@3.1138.0':
     resolution: {integrity: sha512-qzrDRzbf4Zdney1oaolFmrpc8xIZFOrqjUOdmrz8ZpJkd/5qC4p3n4jsZenn19biMToRm0XIjKdkD0fXhwS0Bw==}
@@ -1465,6 +1503,10 @@ packages:
     resolution: {integrity: sha512-ycSJu3tFAQ4v04CBB0agqFMVsSQ1iG3yw+SpgxRqKfaURpQD4CZ8Wn0zPMmSnOuTpTh65Vz+EA0rMrw089wvkA==}
     engines: {node: '>=18.0.0'}
 
+  '@smithy/middleware-compression@4.6.2':
+    resolution: {integrity: sha512-Q9d+luiRjyHT6kCL/9NyGpdZJgodh4vtvfHC6H8SqoVKrV2k9RoyI9/IloVfdCYks3/2DIi7BsYYLcda5KZS0A==}
+    engines: {node: '>=18.0.0'}
+
   '@smithy/node-http-handler@4.12.1':
     resolution: {integrity: sha512-ThMkboGeONWXAelq9FvGsuJC4rOi+qyC4/zhUF58xYpxUg5sQKx2VXZYJmtNjr4dSuBJ1HeJXETQILCz3wOHvw==}
     engines: {node: '>=18.0.0'}
@@ -2218,6 +2260,9 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
+
+  fflate@0.8.3:
+    resolution: {integrity: sha512-tbZNuJrLwGUp3zshBtdy4W+ORxZuIh8a5ilyIEQDC5rY1f3U20JMry0Ll3WBzU58EZKsEuJFXhb5gwv8CsPvgA==}
 
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
@@ -3335,6 +3380,18 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 10.4.3
 
+  '@aws-sdk/client-cloudwatch@3.1146.0':
+    dependencies:
+      '@aws-sdk/core': 3.978.1
+      '@aws-sdk/credential-provider-node': 3.972.84
+      '@aws-sdk/types': 3.974.6
+      '@smithy/core': 3.35.0
+      '@smithy/fetch-http-handler': 5.8.0
+      '@smithy/middleware-compression': 4.6.2
+      '@smithy/node-http-handler': 4.12.1
+      '@smithy/types': 4.19.0
+      tslib: 2.8.1
+
   '@aws-sdk/client-dynamodb@3.1138.0':
     dependencies:
       '@aws-sdk/core': 3.978.1
@@ -4422,6 +4479,13 @@ snapshots:
       '@smithy/types': 4.19.0
       tslib: 2.8.1
 
+  '@smithy/middleware-compression@4.6.2':
+    dependencies:
+      '@smithy/core': 3.35.0
+      '@smithy/types': 4.19.0
+      fflate: 0.8.3
+      tslib: 2.8.1
+
   '@smithy/node-http-handler@4.12.1':
     dependencies:
       '@smithy/core': 3.35.0
@@ -5161,6 +5225,8 @@ snapshots:
     optionalDependencies:
       picomatch: 4.0.7
 
+  fflate@0.8.3: {}
+
   file-entry-cache@8.0.0:
     dependencies:
       flat-cache: 4.0.1
@@ -5284,8 +5350,7 @@ snapshots:
 
   jiti@2.7.0: {}
 
-  jose@6.2.12:
-    optional: true
+  jose@6.2.12: {}
 
   joycon@3.1.1: {}
 

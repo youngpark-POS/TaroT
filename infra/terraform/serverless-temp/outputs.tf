@@ -33,3 +33,10 @@ output "cleanup_function_name" {
 output "agent_dlq_url" {
   value = aws_sqs_queue.agent_jobs_dlq.url
 }
+
+output "monitoring_url" {
+  value = "https://${aws_cloudfront_distribution.web.domain_name}/monitoring"
+}
+output "monitoring_user_pool_id" {
+  value = aws_cognito_user_pool.monitoring.id
+}

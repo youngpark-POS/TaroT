@@ -44,6 +44,8 @@ after 24 hours.
   migrations, seeders, conditional updates, idempotency, and queue dispatch.
 - `packages/runtime`: environment validation, Secrets Manager loading, encryption,
   and keyed hashes.
+- `packages/monitoring`: private Cognito authorization, AWS metric reads, and anonymous
+  daily OpenAI usage counters. `apps/web/src/monitoring` contains the administrator UI.
 - `infra/terraform`: long-term ECS/RDS skeleton.
 - `infra/terraform/serverless-temp`: independently removable Lambda, SQS, DynamoDB,
   private S3, and CloudFront deployment.
@@ -152,6 +154,11 @@ Canonical content is code-reviewed, versioned data rather than model output.
   are not to be bypassed.
 - CORS remains restricted to the configured web origin. Keep request/body limits,
   origin checks, security headers, redaction, and timeouts.
+- `/monitoring` requires Cognito ID-token verification and the `monitoring-admins`
+  group. Keep OAuth state/PKCE and HttpOnly cookies; do not enable self-registration.
+  Read [docs/monitoring.md](docs/monitoring.md) before changing monitoring. Never add
+  prompts, reading IDs, results, or secrets to telemetry; telemetry failure must not
+  trigger another paid model call. Usage counts start at the monitoring deployment.
 
 ## Temporary AWS deployment invariants
 

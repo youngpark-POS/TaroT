@@ -9,6 +9,7 @@ import {
 import { CRISIS_SUPPORT_MESSAGE } from '@tarot/contracts/safety';
 import type { ReadingAgentGateway, SpreadAgentGateway } from '@tarot/domain';
 import { z } from 'zod';
+import { trackUsage, type UsageObserver } from './usage.js';
 
 const CRISIS_NOTICE = `이 리딩은 전문적인 의료·법률·재정 또는 위기 지원을 대신하지 않아요. ${CRISIS_SUPPORT_MESSAGE}`;
 
@@ -109,7 +110,10 @@ export class MockReadingAgent implements ReadingAgentGateway {
 }
 
 export class OpenAISpreadAgent implements SpreadAgentGateway {
-  constructor(private readonly model: string) {}
+  constructor(
+    private readonly model: string,
+    private readonly usageObserver?: UsageObserver,
+  ) {}
 
   async recommend(input: {
     question: string;
@@ -138,21 +142,27 @@ export class OpenAISpreadAgent implements SpreadAgentGateway {
       tools: [listSpreads],
       outputType: spreadAgentOutputSchema,
     });
-    const result = await run(
-      agent,
-      JSON.stringify({
-        userQuestion: input.question,
-        clarification: input.clarification ?? null,
-        clarificationAllowed: input.clarificationAllowed,
-      }),
-      { maxTurns: 3 },
-    );
-    return spreadAgentOutputSchema.parse(result.finalOutput);
+    return trackUsage('spread', this.model, this.usageObserver, async (report) => {
+      const result = await run(
+        agent,
+        JSON.stringify({
+          userQuestion: input.question,
+          clarification: input.clarification ?? null,
+          clarificationAllowed: input.clarificationAllowed,
+        }),
+        { maxTurns: 3 },
+      );
+      report(result.state.usage);
+      return spreadAgentOutputSchema.parse(result.finalOutput);
+    });
   }
 }
 
 export class OpenAIReadingAgent implements ReadingAgentGateway {
-  constructor(private readonly model: string) {}
+  constructor(
+    private readonly model: string,
+    private readonly usageObserver?: UsageObserver,
+  ) {}
 
   async interpret(input: Parameters<ReadingAgentGateway['interpret']>[0]): Promise<ReadingResult> {
     const getReadingKnowledge = tool({
@@ -192,20 +202,23 @@ crisis가 true이면 안전 안내에 109, 112, 119를 포함하되 리딩은 �
       tools: [getReadingKnowledge],
       outputType: readingResultSchema,
     });
-    const result = await run(
-      agent,
-      JSON.stringify({
-        userQuestion: input.question,
-        highRisk: input.highRisk,
-        crisis: input.crisis,
-      }),
-      { maxTurns: 3 },
-    );
-    const parsed = readingResultSchema.parse(result.finalOutput);
-    return {
-      ...parsed,
-      safetyNotice: input.highRisk ? (parsed.safetyNotice ?? CRISIS_NOTICE) : parsed.safetyNotice,
-    };
+    return trackUsage('reading', this.model, this.usageObserver, async (report) => {
+      const result = await run(
+        agent,
+        JSON.stringify({
+          userQuestion: input.question,
+          highRisk: input.highRisk,
+          crisis: input.crisis,
+        }),
+        { maxTurns: 3 },
+      );
+      report(result.state.usage);
+      const parsed = readingResultSchema.parse(result.finalOutput);
+      return {
+        ...parsed,
+        safetyNotice: input.highRisk ? (parsed.safetyNotice ?? CRISIS_NOTICE) : parsed.safetyNotice,
+      };
+    });
   }
 }
 
@@ -214,13 +227,14 @@ export function createAgentGateways(config: {
   spreadModel: string;
   readingModel: string;
   apiKey?: string | undefined;
+  usageObserver?: UsageObserver | undefined;
 }): { spreadAgent: SpreadAgentGateway; readingAgent: ReadingAgentGateway } {
   if (config.mode === 'openai') {
     if (!config.apiKey) throw new Error('OpenAI API key is required in openai mode.');
     setDefaultOpenAIKey(config.apiKey);
     return {
-      spreadAgent: new OpenAISpreadAgent(config.spreadModel),
-      readingAgent: new OpenAIReadingAgent(config.readingModel),
+      spreadAgent: new OpenAISpreadAgent(config.spreadModel, config.usageObserver),
+      readingAgent: new OpenAIReadingAgent(config.readingModel, config.usageObserver),
     };
   }
   return { spreadAgent: new MockSpreadAgent(), readingAgent: new MockReadingAgent() };

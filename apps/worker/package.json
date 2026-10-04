@@ -15,7 +15,8 @@
     "@tarot/content": "workspace:*",
     "@tarot/contracts": "workspace:*",
     "@tarot/database": "workspace:*",
-    "@tarot/runtime": "workspace:*"
+    "@tarot/runtime": "workspace:*",
+    "@tarot/monitoring": "workspace:*"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.152",

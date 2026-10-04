@@ -34,6 +34,7 @@ services:
       - tarot-dev-database-node-modules:/workspace/packages/database/node_modules
       - tarot-dev-domain-node-modules:/workspace/packages/domain/node_modules
       - tarot-dev-runtime-node-modules:/workspace/packages/runtime/node_modules
+      - tarot-dev-monitoring-node-modules:/workspace/packages/monitoring/node_modules
       - tarot-dev-pnpm-store:/pnpm/store
 
 volumes:
@@ -47,4 +48,5 @@ volumes:
   tarot-dev-database-node-modules:
   tarot-dev-domain-node-modules:
   tarot-dev-runtime-node-modules:
+  tarot-dev-monitoring-node-modules:
   tarot-dev-pnpm-store:

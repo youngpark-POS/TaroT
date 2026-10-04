@@ -32,6 +32,14 @@ const envSchema = z.object({
   CONTENT_TABLE: z.string().min(1).default('tarot-dev-content'),
   RATE_LIMITS_TABLE: z.string().min(1).default('tarot-dev-rate-limits'),
   AGENT_QUEUE_URL: optionalUrl,
+  TELEMETRY_TABLE: optionalNonEmptyString,
+  MONITORING_USER_POOL_ID: optionalNonEmptyString,
+  MONITORING_CLIENT_ID: optionalNonEmptyString,
+  MONITORING_AUTH_DOMAIN: optionalUrl,
+  MONITORING_SITE_ORIGIN: optionalUrl,
+  MONITORING_FUNCTION_PREFIX: z.string().default('tarot-temp'),
+  MONITORING_DLQ_URL: optionalUrl,
+  AWS_REGION: z.string().default('ap-northeast-2'),
 });
 
 export type AppConfig = z.infer<typeof envSchema>;

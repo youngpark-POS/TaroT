@@ -3,7 +3,16 @@ import type { PublicReading, ReadingResult, Spread } from '@tarot/contracts';
 import { CRISIS_SUPPORT_MESSAGE } from '@tarot/contracts/safety';
 import { AnimatePresence, motion } from 'motion/react';
 import { type FormEvent, useState } from 'react';
-import { Link, Navigate, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  Navigate,
+  Route,
+  Routes,
+  useNavigate,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
+import { MonitoringPage } from './monitoring/MonitoringPage.js';
 import { api } from './api.js';
 
 const examples = [
@@ -534,6 +543,8 @@ function ReadingPage() {
 }
 
 export function App() {
+  const location = useLocation();
+  if (location.pathname === '/monitoring') return <MonitoringPage />;
   return (
     <Layout>
       <Routes>

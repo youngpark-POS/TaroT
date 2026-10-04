@@ -102,6 +102,7 @@ jobs:
           WORKER_FUNCTION=$(jq -r '.worker_function_name.value // empty' <<< "$TF_OUTPUTS")
           CLEANUP_FUNCTION=$(jq -r '.cleanup_function_name.value // empty' <<< "$TF_OUTPUTS")
           {
+            echo "MONITORING_SITE_ORIGIN=$(jq -r '.cloudfront_url.value // empty' <<< "$TF_OUTPUTS")"
             echo "ROLLBACK_WEB_BUCKET=$WEB_BUCKET"
             echo "ROLLBACK_API_FUNCTION=$API_FUNCTION"
             echo "ROLLBACK_WORKER_FUNCTION=$WORKER_FUNCTION"
@@ -134,7 +135,8 @@ jobs:
             -var="api_source_code_hash=$(openssl dgst -sha256 -binary artifacts/api.zip | openssl base64 -A)" \
             -var="worker_source_code_hash=$(openssl dgst -sha256 -binary artifacts/worker.zip | openssl base64 -A)" \
             -var="cleanup_source_code_hash=$(openssl dgst -sha256 -binary artifacts/cleanup.zip | openssl base64 -A)" \
-            -var="budget_notification_email=${BUDGET_EMAIL}"
+            -var="budget_notification_email=${BUDGET_EMAIL}" \
+            -var="monitoring_site_origin=${MONITORING_SITE_ORIGIN}"
           echo '### Terraform plan actions' >> "$GITHUB_STEP_SUMMARY"
           terraform show -json tfplan | jq -r '
             [.resource_changes[]?.change.actions | join("/")] |
@@ -154,6 +156,29 @@ jobs:
             echo "Populate the application secret with scripts/set-aws-secret.ps1, then rerun this workflow." >&2
             exit 1
           fi
+
+      - name: Invite monitoring administrator
+        shell: bash
+        working-directory: ${{ env.TF_DIR }}
+        env:
+          ADMIN_EMAIL: ${{ vars.BUDGET_NOTIFICATION_EMAIL }}
+        run: |
+          if [[ -z "$ADMIN_EMAIL" ]]; then
+            echo "No administrator email configured; create a Cognito user manually." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          echo "::add-mask::$ADMIN_EMAIL"
+          POOL_ID=$(terraform output -raw monitoring_user_pool_id)
+          if ! aws cognito-idp admin-get-user --user-pool-id "$POOL_ID" --username "$ADMIN_EMAIL" >/dev/null 2>"$RUNNER_TEMP/cognito-user-check"; then
+            if ! grep -q 'UserNotFoundException' "$RUNNER_TEMP/cognito-user-check"; then
+              echo "Unable to check monitoring administrator." >&2
+              exit 1
+            fi
+            aws cognito-idp admin-create-user --user-pool-id "$POOL_ID" --username "$ADMIN_EMAIL" \
+              --user-attributes "Name=email,Value=$ADMIN_EMAIL" "Name=email_verified,Value=true" \
+              --desired-delivery-mediums EMAIL >/dev/null
+          fi
+          aws cognito-idp admin-add-user-to-group --user-pool-id "$POOL_ID" --username "$ADMIN_EMAIL" --group-name monitoring-admins
 
       - name: Seed canonical content
         shell: bash
@@ -183,6 +208,7 @@ jobs:
           for _attempt in {1..20}; do
             if curl --fail --silent --show-error "$SITE_URL/health/live" | grep -q '"ok"'; then
               echo "### Deployed $SITE_URL" >> "$GITHUB_STEP_SUMMARY"
+              echo "Monitoring: $SITE_URL/monitoring" >> "$GITHUB_STEP_SUMMARY"
               exit 0
             fi
             sleep 15
