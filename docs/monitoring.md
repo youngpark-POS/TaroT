@@ -54,8 +54,10 @@ new paid custom metrics or continuous log scans are needed. GetMetricData reques
 and Cognito/DynamoDB usage may incur charges under the account's current pricing.
 
 Bootstrap IAM must be updated from `bootstrap/main.tf` to allow the new Cognito
-resources before the first monitoring deployment. The workflow passes the previously
-deployed CloudFront origin as `monitoring_site_origin`, avoiding a dependency cycle
+resources before the first monitoring deployment.
+This includes `GetUserPoolMfaConfig` and `SetUserPoolMfaConfig` for Terraform's
+optional software-token MFA configuration, restricted to the tagged monitoring pool.
+The workflow passes the previously deployed CloudFront origin as `monitoring_site_origin`, avoiding a dependency cycle
 between CloudFront, Lambda environment, and Cognito callback URLs. A fresh stack needs
 a second deployment after CloudFront has an origin before login becomes enabled.
 
